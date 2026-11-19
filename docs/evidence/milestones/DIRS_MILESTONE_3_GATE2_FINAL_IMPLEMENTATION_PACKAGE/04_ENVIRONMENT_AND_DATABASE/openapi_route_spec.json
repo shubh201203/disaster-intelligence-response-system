@@ -1,0 +1,2877 @@
+{
+  "endpoint": "/api/v1/recovery/optimization/evaluate",
+  "paths": {
+    "/api/v1/recovery/optimization/evaluate": {
+      "post": {
+        "tags": [
+          "Post-Disaster Recovery Portfolio Optimization"
+        ],
+        "summary": "Evaluate Recovery Optimization Scenario",
+        "description": "Evaluates a stateless post-disaster recovery optimization scenario using Google OR-Tools CP-SAT.\n\nGuarantees:\n- Pure in-memory computation: zero application database records written or modified.\n- Zero persistence: optimization schedules, trajectories, and solver outputs are not saved to database.\n- Role-based security: strictly restricted to GOVT emergency managers and ADMIN users.\n- Correlation tracking: unique X-Correlation-ID emitted on every request for telemetry traceability.",
+        "operationId": "evaluate_recovery_optimization_scenario_api_v1_recovery_optimization_evaluate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryOptimizationScenarioRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Optimization scenario evaluated successfully across any solver outcome (OPTIMAL, FEASIBLE, INFEASIBLE, UNKNOWN, MODEL_INVALID, POST_SOLVE_RECONCILIATION_FAILED).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecoveryOptimizationScenarioResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated: Missing, invalid, or expired JWT bearer token."
+          },
+          "403": {
+            "description": "Forbidden: User role is not GOVT or ADMIN."
+          },
+          "422": {
+            "description": "Unprocessable Entity: Contract validation failure, candidate limit (>500), or solve time exceeding cap."
+          },
+          "500": {
+            "description": "Unexpected internal execution failure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimizationErrorDetailDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CommunityRecoveryMetricCreate": {
+        "properties": {
+          "ward_code": {
+            "type": "string",
+            "title": "Ward Code"
+          },
+          "district": {
+            "type": "string",
+            "title": "District"
+          },
+          "metric_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Metric Date"
+          },
+          "active_shelter_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Active Shelter Count",
+            "default": 0
+          },
+          "remaining_displaced_persons": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Remaining Displaced Persons",
+            "default": 0
+          },
+          "power_grid_restoration_pct": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Power Grid Restoration Pct",
+            "default": 0.0
+          },
+          "potable_water_access_pct": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Potable Water Access Pct",
+            "default": 0.0
+          },
+          "healthcare_facility_operational_pct": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Healthcare Facility Operational Pct",
+            "default": 0.0
+          },
+          "schools_open_pct": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Schools Open Pct",
+            "default": 0.0
+          },
+          "livelihoods_resumed_pct": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Livelihoods Resumed Pct",
+            "default": 0.0
+          },
+          "overall_recovery_score": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Overall Recovery Score",
+            "default": 0.0
+          },
+          "data_confidence": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Data Confidence",
+            "default": 100.0
+          },
+          "freshness_status": {
+            "type": "string",
+            "title": "Freshness Status",
+            "description": "FRESH, MODERATE, STALE_AMBER, EXPIRED_RED",
+            "default": "FRESH"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ward_code",
+          "district",
+          "metric_date"
+        ],
+        "title": "CommunityRecoveryMetricCreate"
+      },
+      "CommunityRecoveryMetricResponse": {
+        "properties": {
+          "ward_code": {
+            "type": "string",
+            "title": "Ward Code"
+          },
+          "district": {
+            "type": "string",
+            "title": "District"
+          },
+          "metric_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Metric Date"
+          },
+          "active_shelter_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Active Shelter Count",
+            "default": 0
+          },
+          "remaining_displaced_persons": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Remaining Displaced Persons",
+            "default": 0
+          },
+          "power_grid_restoration_pct": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Power Grid Restoration Pct",
+            "default": 0.0
+          },
+          "potable_water_access_pct": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Potable Water Access Pct",
+            "default": 0.0
+          },
+          "healthcare_facility_operational_pct": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Healthcare Facility Operational Pct",
+            "default": 0.0
+          },
+          "schools_open_pct": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Schools Open Pct",
+            "default": 0.0
+          },
+          "livelihoods_resumed_pct": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Livelihoods Resumed Pct",
+            "default": 0.0
+          },
+          "overall_recovery_score": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Overall Recovery Score",
+            "default": 0.0
+          },
+          "data_confidence": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Data Confidence",
+            "default": 100.0
+          },
+          "freshness_status": {
+            "type": "string",
+            "title": "Freshness Status",
+            "description": "FRESH, MODERATE, STALE_AMBER, EXPIRED_RED",
+            "default": "FRESH"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "last_verified_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Last Verified At"
+          },
+          "verified_by_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verified By Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ward_code",
+          "district",
+          "metric_date",
+          "id",
+          "last_verified_at"
+        ],
+        "title": "CommunityRecoveryMetricResponse"
+      },
+      "DependencyEdgeDTO": {
+        "properties": {
+          "predecessor_id": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Predecessor Id",
+            "description": "Predecessor project ID"
+          },
+          "successor_id": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Successor Id",
+            "description": "Successor project ID"
+          },
+          "lag_periods": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Lag Periods",
+            "description": "Discrete period lag between finish and start",
+            "default": 0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "predecessor_id",
+          "successor_id"
+        ],
+        "title": "DependencyEdgeDTO",
+        "description": "Directed project dependency relationship DTO."
+      },
+      "DuplicateCandidate": {
+        "properties": {
+          "candidate_incident_id": {
+            "type": "string",
+            "title": "Candidate Incident Id"
+          },
+          "candidate_code": {
+            "type": "string",
+            "title": "Candidate Code"
+          },
+          "candidate_title": {
+            "type": "string",
+            "title": "Candidate Title"
+          },
+          "similarity_score": {
+            "type": "number",
+            "title": "Similarity Score",
+            "description": "Overall multi-criteria similarity score (0-1)"
+          },
+          "recommendation": {
+            "type": "string",
+            "title": "Recommendation",
+            "description": "POSSIBLE_DUPLICATE or UNRELATED"
+          },
+          "evidence": {
+            "$ref": "#/components/schemas/DuplicateEvidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "candidate_incident_id",
+          "candidate_code",
+          "candidate_title",
+          "similarity_score",
+          "recommendation",
+          "evidence"
+        ],
+        "title": "DuplicateCandidate"
+      },
+      "DuplicateCandidateGroup": {
+        "properties": {
+          "beneficiary_hash": {
+            "type": "string",
+            "title": "Beneficiary Hash"
+          },
+          "matched_need_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Matched Need Ids"
+          },
+          "household_head_name_masked": {
+            "type": "string",
+            "title": "Household Head Name Masked"
+          },
+          "record_count": {
+            "type": "integer",
+            "title": "Record Count"
+          },
+          "match_reason": {
+            "type": "string",
+            "title": "Match Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "beneficiary_hash",
+          "matched_need_ids",
+          "household_head_name_masked",
+          "record_count",
+          "match_reason"
+        ],
+        "title": "DuplicateCandidateGroup"
+      },
+      "InfeasibilityDiagnosticReportDTO": {
+        "properties": {
+          "has_proven_infeasibility": {
+            "type": "boolean",
+            "title": "Has Proven Infeasibility"
+          },
+          "proven_causes": {
+            "items": {
+              "$ref": "#/components/schemas/InfeasibilityFindingDTO"
+            },
+            "type": "array",
+            "title": "Proven Causes"
+          },
+          "necessary_condition_violations": {
+            "items": {
+              "$ref": "#/components/schemas/InfeasibilityFindingDTO"
+            },
+            "type": "array",
+            "title": "Necessary Condition Violations"
+          },
+          "solver_hypotheses": {
+            "items": {
+              "$ref": "#/components/schemas/InfeasibilityFindingDTO"
+            },
+            "type": "array",
+            "title": "Solver Hypotheses"
+          },
+          "warnings": {
+            "items": {
+              "$ref": "#/components/schemas/InfeasibilityFindingDTO"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "is_assumption_core_minimal": {
+            "type": "boolean",
+            "title": "Is Assumption Core Minimal",
+            "default": false
+          },
+          "is_assumption_core_sufficient": {
+            "type": "boolean",
+            "title": "Is Assumption Core Sufficient",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "has_proven_infeasibility",
+          "proven_causes",
+          "necessary_condition_violations",
+          "solver_hypotheses",
+          "warnings"
+        ],
+        "title": "InfeasibilityDiagnosticReportDTO",
+        "description": "Multi-category diagnostic report DTO for infeasible portfolios."
+      },
+      "InfeasibilityFindingDTO": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "classification": {
+            "type": "string",
+            "title": "Classification"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "mathematical_condition": {
+            "type": "string",
+            "title": "Mathematical Condition"
+          },
+          "affected_projects": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Affected Projects"
+          },
+          "conflicting_periods": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Conflicting Periods"
+          },
+          "details": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Details"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "category",
+          "classification",
+          "message",
+          "mathematical_condition",
+          "affected_projects"
+        ],
+        "title": "InfeasibilityFindingDTO",
+        "description": "Diagnostic conflict finding DTO."
+      },
+      "PeriodSolvencyResultDTO": {
+        "properties": {
+          "period": {
+            "type": "integer",
+            "title": "Period"
+          },
+          "revenue_receipt_ccu": {
+            "type": "integer",
+            "title": "Revenue Receipt Ccu"
+          },
+          "expenditure_ccu": {
+            "type": "integer",
+            "title": "Expenditure Ccu"
+          },
+          "cash_balance_ccu": {
+            "type": "integer",
+            "title": "Cash Balance Ccu"
+          },
+          "cash_balance_inr": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Cash Balance Inr"
+          },
+          "is_solvent": {
+            "type": "boolean",
+            "title": "Is Solvent"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "period",
+          "revenue_receipt_ccu",
+          "expenditure_ccu",
+          "cash_balance_ccu",
+          "cash_balance_inr",
+          "is_solvent"
+        ],
+        "title": "PeriodSolvencyResultDTO",
+        "description": "Periodic solvency balance DTO."
+      },
+      "ProjectDependencyCreate": {
+        "properties": {
+          "predecessor_project_id": {
+            "type": "string",
+            "title": "Predecessor Project Id"
+          },
+          "successor_project_id": {
+            "type": "string",
+            "title": "Successor Project Id"
+          },
+          "dependency_type": {
+            "type": "string",
+            "title": "Dependency Type",
+            "description": "FINISH_TO_START, START_TO_START, FINISH_TO_FINISH",
+            "default": "FINISH_TO_START"
+          },
+          "lag_days": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Lag Days",
+            "default": 0
+          },
+          "rationale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rationale"
+          }
+        },
+        "type": "object",
+        "required": [
+          "predecessor_project_id",
+          "successor_project_id"
+        ],
+        "title": "ProjectDependencyCreate"
+      },
+      "ProjectDependencyResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "predecessor_project_id": {
+            "type": "string",
+            "title": "Predecessor Project Id"
+          },
+          "successor_project_id": {
+            "type": "string",
+            "title": "Successor Project Id"
+          },
+          "dependency_type": {
+            "type": "string",
+            "title": "Dependency Type"
+          },
+          "lag_days": {
+            "type": "integer",
+            "title": "Lag Days"
+          },
+          "is_critical_path": {
+            "type": "boolean",
+            "title": "Is Critical Path"
+          },
+          "rationale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rationale"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "predecessor_project_id",
+          "successor_project_id",
+          "dependency_type",
+          "lag_days",
+          "is_critical_path",
+          "created_at"
+        ],
+        "title": "ProjectDependencyResponse"
+      },
+      "ProjectOptimizationCandidateDTO": {
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Project Id",
+            "description": "Unique candidate project identifier"
+          },
+          "project_code": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Project Code",
+            "description": "Human-readable project code"
+          },
+          "district_id": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "District Id",
+            "description": "Administrative district code"
+          },
+          "estimated_cost": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              }
+            ],
+            "title": "Estimated Cost",
+            "description": "Total capital reconstruction cost"
+          },
+          "duration_periods": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Duration Periods",
+            "description": "Execution duration in discrete planning periods"
+          },
+          "cost_currency": {
+            "$ref": "#/components/schemas/CurrencyUnit",
+            "description": "Currency denomination of estimated cost",
+            "default": "INR"
+          },
+          "release_period": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Release Period",
+            "description": "Earliest discrete calendar period project may start",
+            "default": 1
+          },
+          "deadline_period": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deadline Period",
+            "description": "Latest discrete calendar period project must complete"
+          },
+          "is_tier1_mandatory": {
+            "type": "boolean",
+            "title": "Is Tier1 Mandatory",
+            "description": "Life-safety priority flag requiring selection and early start",
+            "default": false
+          },
+          "raw_mcpi_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Raw Mcpi Score",
+            "description": "Normalized Multi-Criteria Priority Index in [0.0, 1.0]",
+            "default": 0.0
+          },
+          "expenditure_weights": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expenditure Weights",
+            "description": "Disbursement profile weights summing to 1.0"
+          },
+          "resource_demands": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Resource Demands",
+            "description": "Resource type -> integer demand per active period"
+          },
+          "eligible_funds": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Eligible Funds",
+            "description": "List of eligible funding source identifiers"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "project_id",
+          "project_code",
+          "district_id",
+          "estimated_cost",
+          "duration_periods"
+        ],
+        "title": "ProjectOptimizationCandidateDTO",
+        "description": "Candidate recovery project input DTO for portfolio optimization."
+      },
+      "RecoveryAnalyticsSummaryResponse": {
+        "properties": {
+          "total_facilities_assessed": {
+            "type": "integer",
+            "title": "Total Facilities Assessed",
+            "description": "Total verified facilities assessed by certified engineers"
+          },
+          "verified_facilities_count": {
+            "type": "integer",
+            "title": "Verified Facilities Count",
+            "description": "Explicit count of verified engineering assessments",
+            "default": 0
+          },
+          "preliminary_screening_count": {
+            "type": "integer",
+            "title": "Preliminary Screening Count",
+            "description": "Separate count of unverified preliminary AI screenings",
+            "default": 0
+          },
+          "rejected_assessments_count": {
+            "type": "integer",
+            "title": "Rejected Assessments Count",
+            "description": "Count of rejected assessments excluded from official totals",
+            "default": 0
+          },
+          "operational_facilities_percentage": {
+            "type": "number",
+            "title": "Operational Facilities Percentage"
+          },
+          "damage_distribution": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Damage Distribution",
+            "description": "Damage distribution strictly across VERIFIED assessments"
+          },
+          "preliminary_damage_distribution": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Preliminary Damage Distribution",
+            "description": "Damage distribution across preliminary unverified screenings"
+          },
+          "sectoral_distribution": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Sectoral Distribution",
+            "description": "Sectoral distribution strictly across VERIFIED assessments"
+          },
+          "average_power_restoration_pct": {
+            "type": "number",
+            "title": "Average Power Restoration Pct"
+          },
+          "average_water_access_pct": {
+            "type": "number",
+            "title": "Average Water Access Pct"
+          },
+          "average_community_recovery_score": {
+            "type": "number",
+            "title": "Average Community Recovery Score"
+          },
+          "aggregated_affected_households": {
+            "type": "integer",
+            "title": "Aggregated Affected Households"
+          },
+          "aggregated_displaced_persons": {
+            "type": "integer",
+            "title": "Aggregated Displaced Persons"
+          },
+          "last_updated": {
+            "title": "Last Updated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_facilities_assessed",
+          "operational_facilities_percentage",
+          "average_power_restoration_pct",
+          "average_water_access_pct",
+          "average_community_recovery_score",
+          "aggregated_affected_households",
+          "aggregated_displaced_persons",
+          "last_updated"
+        ],
+        "title": "RecoveryAnalyticsSummaryResponse"
+      },
+      "RecoveryAssessmentCreate": {
+        "properties": {
+          "sector": {
+            "type": "string",
+            "title": "Sector",
+            "description": "HOUSING, HEALTH, EDUCATION, WASH, TRANSPORT, POWER, TELECOM"
+          },
+          "facility_name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "Facility Name"
+          },
+          "damage_level": {
+            "type": "string",
+            "title": "Damage Level",
+            "description": "NONE, MINOR, MODERATE, SEVERE, DESTROYED"
+          },
+          "is_operational": {
+            "type": "boolean",
+            "title": "Is Operational",
+            "default": false
+          },
+          "estimated_reconstruction_cost": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Estimated Reconstruction Cost",
+            "default": 0.0
+          },
+          "structural_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Structural Notes"
+          },
+          "evidence_media_urls": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence Media Urls"
+          },
+          "latitude": {
+            "type": "number",
+            "title": "Latitude"
+          },
+          "longitude": {
+            "type": "number",
+            "title": "Longitude"
+          },
+          "incident_id": {
+            "type": "string",
+            "title": "Incident Id",
+            "description": "Target incident UUID"
+          },
+          "cv_assessment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cv Assessment Id"
+          },
+          "deduplication_cluster_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deduplication Cluster Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sector",
+          "facility_name",
+          "damage_level",
+          "latitude",
+          "longitude",
+          "incident_id"
+        ],
+        "title": "RecoveryAssessmentCreate"
+      },
+      "RecoveryAssessmentResponse": {
+        "properties": {
+          "sector": {
+            "type": "string",
+            "title": "Sector",
+            "description": "HOUSING, HEALTH, EDUCATION, WASH, TRANSPORT, POWER, TELECOM"
+          },
+          "facility_name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "Facility Name"
+          },
+          "damage_level": {
+            "type": "string",
+            "title": "Damage Level",
+            "description": "NONE, MINOR, MODERATE, SEVERE, DESTROYED"
+          },
+          "is_operational": {
+            "type": "boolean",
+            "title": "Is Operational",
+            "default": false
+          },
+          "estimated_reconstruction_cost": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Estimated Reconstruction Cost",
+            "default": 0.0
+          },
+          "structural_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Structural Notes"
+          },
+          "evidence_media_urls": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence Media Urls"
+          },
+          "latitude": {
+            "type": "number",
+            "title": "Latitude"
+          },
+          "longitude": {
+            "type": "number",
+            "title": "Longitude"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "assessment_code": {
+            "type": "string",
+            "title": "Assessment Code"
+          },
+          "incident_id": {
+            "type": "string",
+            "title": "Incident Id"
+          },
+          "inspector_id": {
+            "type": "string",
+            "title": "Inspector Id"
+          },
+          "cv_assessment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cv Assessment Id"
+          },
+          "assessment_version": {
+            "type": "integer",
+            "title": "Assessment Version"
+          },
+          "superseded_by_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Superseded By Id"
+          },
+          "is_current_version": {
+            "type": "boolean",
+            "title": "Is Current Version"
+          },
+          "deduplication_cluster_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deduplication Cluster Id"
+          },
+          "reconciliation_status": {
+            "type": "string",
+            "title": "Reconciliation Status"
+          },
+          "provenance_tier": {
+            "type": "string",
+            "title": "Provenance Tier"
+          },
+          "data_confidence": {
+            "type": "number",
+            "title": "Data Confidence"
+          },
+          "freshness_status": {
+            "type": "string",
+            "title": "Freshness Status"
+          },
+          "verification_status": {
+            "type": "string",
+            "title": "Verification Status"
+          },
+          "verified_by_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verified By Id"
+          },
+          "verified_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verified At"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sector",
+          "facility_name",
+          "damage_level",
+          "latitude",
+          "longitude",
+          "id",
+          "assessment_code",
+          "incident_id",
+          "inspector_id",
+          "assessment_version",
+          "is_current_version",
+          "reconciliation_status",
+          "provenance_tier",
+          "data_confidence",
+          "freshness_status",
+          "verification_status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "RecoveryAssessmentResponse"
+      },
+      "RecoveryAssessmentSupersede": {
+        "properties": {
+          "new_damage_level": {
+            "type": "string",
+            "title": "New Damage Level",
+            "description": "NONE, MINOR, MODERATE, SEVERE, DESTROYED"
+          },
+          "new_estimated_cost": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "New Estimated Cost"
+          },
+          "is_operational": {
+            "type": "boolean",
+            "title": "Is Operational",
+            "default": false
+          },
+          "structural_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Structural Notes"
+          },
+          "justification_reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 5
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Justification Reason"
+          },
+          "supersede_reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 5
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supersede Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "new_damage_level",
+          "new_estimated_cost"
+        ],
+        "title": "RecoveryAssessmentSupersede"
+      },
+      "RecoveryAssessmentVerify": {
+        "properties": {
+          "action": {
+            "type": "string",
+            "title": "Action",
+            "description": "VERIFY or REJECT"
+          },
+          "verified_cost": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verified Cost"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "action"
+        ],
+        "title": "RecoveryAssessmentVerify"
+      },
+      "RecoveryNeedCreate": {
+        "properties": {
+          "ward_code": {
+            "type": "string",
+            "title": "Ward Code"
+          },
+          "district": {
+            "type": "string",
+            "title": "District"
+          },
+          "sector": {
+            "type": "string",
+            "title": "Sector"
+          },
+          "affected_households": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Affected Households",
+            "default": 0
+          },
+          "displaced_persons": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Displaced Persons",
+            "default": 0
+          },
+          "vulnerable_persons": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Vulnerable Persons",
+            "default": 0
+          },
+          "potable_water_demand_liters_day": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Potable Water Demand Liters Day",
+            "default": 0.0
+          },
+          "temporary_shelter_units_needed": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Temporary Shelter Units Needed",
+            "default": 0
+          },
+          "livelihood_support_households": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Livelihood Support Households",
+            "default": 0
+          },
+          "unmet_need_score": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Unmet Need Score",
+            "default": 50.0
+          },
+          "census_baseline_population": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Census Baseline Population"
+          },
+          "assessment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assessment Id"
+          },
+          "raw_beneficiary_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Beneficiary Id",
+            "description": "Sensitive ID will be salted and hashed"
+          },
+          "household_head_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Household Head Name",
+            "description": "Will be masked for privacy"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ward_code",
+          "district",
+          "sector",
+          "census_baseline_population"
+        ],
+        "title": "RecoveryNeedCreate"
+      },
+      "RecoveryNeedResponse": {
+        "properties": {
+          "ward_code": {
+            "type": "string",
+            "title": "Ward Code"
+          },
+          "district": {
+            "type": "string",
+            "title": "District"
+          },
+          "sector": {
+            "type": "string",
+            "title": "Sector"
+          },
+          "affected_households": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Affected Households",
+            "default": 0
+          },
+          "displaced_persons": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Displaced Persons",
+            "default": 0
+          },
+          "vulnerable_persons": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Vulnerable Persons",
+            "default": 0
+          },
+          "potable_water_demand_liters_day": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Potable Water Demand Liters Day",
+            "default": 0.0
+          },
+          "temporary_shelter_units_needed": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Temporary Shelter Units Needed",
+            "default": 0
+          },
+          "livelihood_support_households": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Livelihood Support Households",
+            "default": 0
+          },
+          "unmet_need_score": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Unmet Need Score",
+            "default": 50.0
+          },
+          "census_baseline_population": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Census Baseline Population"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "assessment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assessment Id"
+          },
+          "beneficiary_id_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Beneficiary Id Hash"
+          },
+          "household_head_name_masked": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Household Head Name Masked"
+          },
+          "is_reconciled": {
+            "type": "boolean",
+            "title": "Is Reconciled"
+          },
+          "reconciliation_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reconciliation Notes"
+          },
+          "data_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Data Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ward_code",
+          "district",
+          "sector",
+          "census_baseline_population",
+          "id",
+          "is_reconciled",
+          "data_timestamp"
+        ],
+        "title": "RecoveryNeedResponse",
+        "description": "Internal / Government detailed schema with hashed identity"
+      },
+      "RecoveryOptimizationScenarioRequest": {
+        "properties": {
+          "scenario_name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Scenario Name",
+            "description": "Scenario identifier"
+          },
+          "planning_horizon_periods": {
+            "type": "integer",
+            "maximum": 120.0,
+            "minimum": 1.0,
+            "title": "Planning Horizon Periods",
+            "description": "Total discrete time periods (T)"
+          },
+          "period_length_days": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Period Length Days",
+            "description": "Calendar days per discrete period",
+            "default": 30.0
+          },
+          "initial_cash": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              }
+            ],
+            "title": "Initial Cash",
+            "description": "Initial available liquidity at period 0",
+            "default": "0.0"
+          },
+          "cash_currency": {
+            "$ref": "#/components/schemas/CurrencyUnit",
+            "description": "Denomination of initial cash",
+            "default": "INR"
+          },
+          "periodic_budgets": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string",
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Periodic Budgets",
+            "description": "Discrete period budget inflows: period -> amount"
+          },
+          "budget_currency": {
+            "$ref": "#/components/schemas/CurrencyUnit",
+            "description": "Denomination of periodic budgets",
+            "default": "INR"
+          },
+          "district_equity_targets": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "District Equity Targets",
+            "description": "District equity quota theta_d in [0.0, 1.0]"
+          },
+          "blackout_districts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Blackout Districts",
+            "description": "Districts with active blackout (zero allocation permitted)"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/ProjectOptimizationCandidateDTO"
+            },
+            "type": "array",
+            "title": "Candidates",
+            "description": "Candidate recovery projects submitted for scheduling"
+          },
+          "dependencies": {
+            "items": {
+              "$ref": "#/components/schemas/DependencyEdgeDTO"
+            },
+            "type": "array",
+            "title": "Dependencies",
+            "description": "Directed precedence edges among candidate projects"
+          },
+          "resource_capacities": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "integer"
+              },
+              "type": "object"
+            },
+            "type": "object",
+            "title": "Resource Capacities",
+            "description": "Resource type -> {period -> integer capacity}"
+          },
+          "funding_sources": {
+            "items": {
+              "$ref": "#/components/schemas/FundingSourceSpecDTO"
+            },
+            "type": "array",
+            "title": "Funding Sources",
+            "description": "Available funding sources under Model B indivisible assignment"
+          },
+          "fiscal_retention_rate": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Fiscal Retention Rate",
+            "description": "Fraction of unused periodic cash retained into subsequent period",
+            "default": 1.0
+          },
+          "enable_early_start_bonus": {
+            "type": "boolean",
+            "title": "Enable Early Start Bonus",
+            "description": "Enables secondary acceleration incentive for earlier project starts",
+            "default": true
+          },
+          "max_safety_start_period": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Safety Start Period",
+            "description": "Caller-mandatory start deadline for Tier-1 mandatory projects (RSK-M2-07)"
+          },
+          "max_solve_time_seconds": {
+            "type": "number",
+            "maximum": 600.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Max Solve Time Seconds",
+            "description": "Maximum wall-clock time allocated to CP-SAT solver",
+            "default": 60.0
+          },
+          "deterministic_seed": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Deterministic Seed",
+            "description": "Solver random seed for reproducible solutions",
+            "default": 42
+          },
+          "num_workers": {
+            "type": "integer",
+            "maximum": 16.0,
+            "minimum": 1.0,
+            "title": "Num Workers",
+            "description": "Parallel worker search threads",
+            "default": 1
+          },
+          "allow_uniform_weight_fallback": {
+            "type": "boolean",
+            "title": "Allow Uniform Weight Fallback",
+            "description": "Explicit opt-in to generate uniform expenditure weights when omitted",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenario_name",
+          "planning_horizon_periods"
+        ],
+        "title": "RecoveryOptimizationScenarioRequest",
+        "description": "Complete caller-supplied recovery optimization scenario request contract.\nStrictly wraps accepted Milestone 2B RecoveryOptimizationRequest."
+      },
+      "RecoveryOptimizationScenarioResponse": {
+        "properties": {
+          "scenario_name": {
+            "type": "string",
+            "title": "Scenario Name"
+          },
+          "solver_status": {
+            "type": "string",
+            "title": "Solver Status"
+          },
+          "is_optimal": {
+            "type": "boolean",
+            "title": "Is Optimal"
+          },
+          "exact_objective_value": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exact Objective Value"
+          },
+          "exact_best_bound": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exact Best Bound"
+          },
+          "conservative_best_bound": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conservative Best Bound"
+          },
+          "objective_value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Objective Value"
+          },
+          "best_bound": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Best Bound"
+          },
+          "optimality_gap": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Optimality Gap"
+          },
+          "solve_time_seconds": {
+            "type": "number",
+            "title": "Solve Time Seconds"
+          },
+          "selected_project_count": {
+            "type": "integer",
+            "title": "Selected Project Count"
+          },
+          "total_cost_ccu": {
+            "type": "integer",
+            "title": "Total Cost Ccu"
+          },
+          "total_cost_inr": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Total Cost Inr"
+          },
+          "scheduled_projects": {
+            "items": {
+              "$ref": "#/components/schemas/ScheduledProjectResultDTO"
+            },
+            "type": "array",
+            "title": "Scheduled Projects"
+          },
+          "periodic_solvency": {
+            "items": {
+              "$ref": "#/components/schemas/PeriodSolvencyResultDTO"
+            },
+            "type": "array",
+            "title": "Periodic Solvency"
+          },
+          "district_equity_allocation_ccu": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "District Equity Allocation Ccu"
+          },
+          "district_equity_allocation_inr": {
+            "additionalProperties": {
+              "type": "string",
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+            },
+            "type": "object",
+            "title": "District Equity Allocation Inr"
+          },
+          "input_fingerprint_sha256": {
+            "type": "string",
+            "title": "Input Fingerprint Sha256"
+          },
+          "ortools_version": {
+            "type": "string",
+            "title": "Ortools Version"
+          },
+          "solver_parameters": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Solver Parameters"
+          },
+          "infeasibility_diagnostics": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InfeasibilityDiagnosticReportDTO"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenario_name",
+          "solver_status",
+          "is_optimal",
+          "solve_time_seconds",
+          "selected_project_count",
+          "total_cost_ccu",
+          "total_cost_inr",
+          "input_fingerprint_sha256",
+          "ortools_version"
+        ],
+        "title": "RecoveryOptimizationScenarioResponse",
+        "description": "Structured API response contract for recovery optimization scenarios.\nStrictly serializes the accepted Milestone 2B RecoveryOptimizationResponse.\nPreserves exact integer objective and conservative best bound without float truncation."
+      },
+      "RecoveryOverrideLogResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "action": {
+            "type": "string",
+            "title": "Action"
+          },
+          "original_value": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Original Value"
+          },
+          "new_value": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "New Value"
+          },
+          "justification_reason": {
+            "type": "string",
+            "title": "Justification Reason"
+          },
+          "ip_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ip Address"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "action",
+          "original_value",
+          "new_value",
+          "justification_reason",
+          "timestamp"
+        ],
+        "title": "RecoveryOverrideLogResponse"
+      },
+      "RecoveryProjectApprove": {
+        "properties": {
+          "approved_budget": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Approved Budget"
+          },
+          "funding_source": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Funding Source"
+          },
+          "sanction_order_number": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Sanction Order Number"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "approved_budget",
+          "funding_source",
+          "sanction_order_number"
+        ],
+        "title": "RecoveryProjectApprove"
+      },
+      "RecoveryProjectCreate": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "sector": {
+            "type": "string",
+            "title": "Sector"
+          },
+          "priority_tier": {
+            "type": "string",
+            "title": "Priority Tier",
+            "description": "TIER_1, TIER_2, TIER_3, TIER_4",
+            "default": "TIER_3"
+          },
+          "priority_score": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Priority Score",
+            "default": 0.0
+          },
+          "estimated_cost": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Estimated Cost",
+            "default": 0.0
+          },
+          "funding_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Funding Source"
+          },
+          "time_indexed_cost_profile": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Time Indexed Cost Profile"
+          },
+          "estimated_duration_days": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Estimated Duration Days"
+          },
+          "lead_agency": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Lead Agency"
+          },
+          "contractor_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contractor Name"
+          },
+          "latitude": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latitude"
+          },
+          "longitude": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Longitude"
+          },
+          "need_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Need Id"
+          },
+          "assigned_manager_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assigned Manager Id"
+          },
+          "earliest_start_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Earliest Start Date"
+          },
+          "planned_completion_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Planned Completion Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "sector",
+          "estimated_duration_days",
+          "lead_agency"
+        ],
+        "title": "RecoveryProjectCreate"
+      },
+      "RecoveryProjectResponse": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "sector": {
+            "type": "string",
+            "title": "Sector"
+          },
+          "priority_tier": {
+            "type": "string",
+            "title": "Priority Tier",
+            "description": "TIER_1, TIER_2, TIER_3, TIER_4",
+            "default": "TIER_3"
+          },
+          "priority_score": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Priority Score",
+            "default": 0.0
+          },
+          "estimated_cost": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Estimated Cost",
+            "default": 0.0
+          },
+          "funding_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Funding Source"
+          },
+          "time_indexed_cost_profile": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Time Indexed Cost Profile"
+          },
+          "estimated_duration_days": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Estimated Duration Days"
+          },
+          "lead_agency": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Lead Agency"
+          },
+          "contractor_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contractor Name"
+          },
+          "latitude": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latitude"
+          },
+          "longitude": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Longitude"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_code": {
+            "type": "string",
+            "title": "Project Code"
+          },
+          "need_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Need Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "actual_expenditure": {
+            "type": "number",
+            "title": "Actual Expenditure"
+          },
+          "actual_duration_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual Duration Days"
+          },
+          "earliest_start_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Earliest Start Date"
+          },
+          "planned_completion_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Planned Completion Date"
+          },
+          "actual_completion_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual Completion Date"
+          },
+          "assigned_manager_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assigned Manager Id"
+          },
+          "approval_status": {
+            "type": "string",
+            "title": "Approval Status"
+          },
+          "approved_by_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approved By Id"
+          },
+          "sanction_order_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sanction Order Number"
+          },
+          "approval_timestamp": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approval Timestamp"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "sector",
+          "estimated_duration_days",
+          "lead_agency",
+          "id",
+          "project_code",
+          "status",
+          "actual_expenditure",
+          "approval_status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "RecoveryProjectResponse"
+      },
+      "RecoveryProjectStatusUpdate": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "PROPOSED, APPROVED, IN_TENDER, IN_PROGRESS, INSPECTION, COMPLETED, SUSPENDED"
+          },
+          "actual_expenditure_increment": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual Expenditure Increment",
+            "default": 0.0
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "RecoveryProjectStatusUpdate"
+      },
+      "RecoveryResourceCreate": {
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "material_category": {
+            "type": "string",
+            "title": "Material Category",
+            "description": "CEMENT, STRUCTURAL_STEEL, PIPING, ASPHALT, TIMBER, HEAVY_MACHINERY, WORKFORCE"
+          },
+          "item_description": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "Item Description"
+          },
+          "quantity_required": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Quantity Required"
+          },
+          "unit_of_measure": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Unit Of Measure"
+          },
+          "unit_cost_estimate": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Unit Cost Estimate"
+          },
+          "supplier_info": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supplier Info"
+          }
+        },
+        "type": "object",
+        "required": [
+          "project_id",
+          "material_category",
+          "item_description",
+          "quantity_required",
+          "unit_of_measure",
+          "unit_cost_estimate"
+        ],
+        "title": "RecoveryResourceCreate"
+      },
+      "RecoveryResourceResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "material_category": {
+            "type": "string",
+            "title": "Material Category"
+          },
+          "item_description": {
+            "type": "string",
+            "title": "Item Description"
+          },
+          "quantity_required": {
+            "type": "number",
+            "title": "Quantity Required"
+          },
+          "quantity_delivered": {
+            "type": "number",
+            "title": "Quantity Delivered"
+          },
+          "unit_of_measure": {
+            "type": "string",
+            "title": "Unit Of Measure"
+          },
+          "unit_cost_estimate": {
+            "type": "number",
+            "title": "Unit Cost Estimate"
+          },
+          "actual_unit_cost": {
+            "type": "number",
+            "title": "Actual Unit Cost"
+          },
+          "supplier_info": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supplier Info"
+          },
+          "delivery_status": {
+            "type": "string",
+            "title": "Delivery Status"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id",
+          "material_category",
+          "item_description",
+          "quantity_required",
+          "quantity_delivered",
+          "unit_of_measure",
+          "unit_cost_estimate",
+          "actual_unit_cost",
+          "delivery_status",
+          "created_at"
+        ],
+        "title": "RecoveryResourceResponse"
+      },
+      "RecoverySpatialSummaryResponse": {
+        "properties": {
+          "ward_code": {
+            "type": "string",
+            "title": "Ward Code"
+          },
+          "total_assessments": {
+            "type": "integer",
+            "title": "Total Assessments"
+          },
+          "verified_assessments": {
+            "type": "integer",
+            "title": "Verified Assessments"
+          },
+          "damage_level_distribution": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Damage Level Distribution"
+          },
+          "total_estimated_reconstruction_cost": {
+            "type": "number",
+            "title": "Total Estimated Reconstruction Cost"
+          },
+          "total_affected_households": {
+            "type": "integer",
+            "title": "Total Affected Households"
+          },
+          "total_displaced_persons": {
+            "type": "integer",
+            "title": "Total Displaced Persons"
+          },
+          "total_potable_water_demand_liters": {
+            "type": "number",
+            "title": "Total Potable Water Demand Liters"
+          },
+          "total_shelter_units_needed": {
+            "type": "integer",
+            "title": "Total Shelter Units Needed"
+          },
+          "spatial_boundary_geojson": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Spatial Boundary Geojson"
+          },
+          "is_synthetic_boundary": {
+            "type": "boolean",
+            "title": "Is Synthetic Boundary"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ward_code",
+          "total_assessments",
+          "verified_assessments",
+          "damage_level_distribution",
+          "total_estimated_reconstruction_cost",
+          "total_affected_households",
+          "total_displaced_persons",
+          "total_potable_water_demand_liters",
+          "total_shelter_units_needed",
+          "spatial_boundary_geojson",
+          "is_synthetic_boundary"
+        ],
+        "title": "RecoverySpatialSummaryResponse"
+      },
+      "StructuredRecoveryNeedCreate": {
+        "properties": {
+          "ward_code": {
+            "type": "string",
+            "title": "Ward Code"
+          },
+          "district": {
+            "type": "string",
+            "title": "District"
+          },
+          "sector": {
+            "type": "string",
+            "title": "Sector",
+            "description": "HOUSING, WASH, HEALTH, EDUCATION, LIVELIHOODS, ESSENTIAL_SERVICES, POWER, TRANSPORT"
+          },
+          "assessment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assessment Id"
+          },
+          "affected_households": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Affected Households"
+          },
+          "displaced_persons": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Displaced Persons",
+            "default": 0
+          },
+          "affected_population_gen": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Affected Population Gen",
+            "description": "General population",
+            "default": 0
+          },
+          "affected_population_acc": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Affected Population Acc",
+            "description": "Accessibility needs population",
+            "default": 0
+          },
+          "affected_population_med": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Affected Population Med",
+            "description": "Medical needs population",
+            "default": 0
+          },
+          "affected_population_med_acc": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Affected Population Med Acc",
+            "description": "Combined medical + accessibility population",
+            "default": 0
+          },
+          "raw_beneficiary_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Beneficiary Id"
+          },
+          "raw_household_head_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Household Head Name"
+          },
+          "potable_water_demand_liters_day": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Potable Water Demand Liters Day",
+            "default": 0.0
+          },
+          "temporary_shelter_units_needed": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Temporary Shelter Units Needed",
+            "default": 0
+          },
+          "livelihood_support_households": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Livelihood Support Households",
+            "default": 0
+          },
+          "unmet_need_score": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Unmet Need Score",
+            "default": 50.0
+          },
+          "census_baseline_population": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Census Baseline Population",
+            "description": "Official census baseline cap for ward"
+          },
+          "urgency_tier": {
+            "type": "string",
+            "title": "Urgency Tier",
+            "description": "CRITICAL_TIER1, HIGH_TIER2, MEDIUM_TIER3, LOW_TIER4",
+            "default": "MEDIUM_TIER3"
+          },
+          "time_horizon_days": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Time Horizon Days",
+            "default": 30
+          },
+          "is_verified_demand": {
+            "type": "boolean",
+            "title": "Is Verified Demand",
+            "default": false
+          },
+          "source_confidence": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Source Confidence",
+            "default": 100.0
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ward_code",
+          "district",
+          "sector",
+          "affected_households",
+          "census_baseline_population"
+        ],
+        "title": "StructuredRecoveryNeedCreate"
+      },
+      "StructuredRecoveryNeedResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "assessment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assessment Id"
+          },
+          "ward_code": {
+            "type": "string",
+            "title": "Ward Code"
+          },
+          "district": {
+            "type": "string",
+            "title": "District"
+          },
+          "sector": {
+            "type": "string",
+            "title": "Sector"
+          },
+          "affected_households": {
+            "type": "integer",
+            "title": "Affected Households"
+          },
+          "displaced_persons": {
+            "type": "integer",
+            "title": "Displaced Persons"
+          },
+          "vulnerable_persons": {
+            "type": "integer",
+            "title": "Vulnerable Persons"
+          },
+          "affected_population_gen": {
+            "type": "integer",
+            "title": "Affected Population Gen"
+          },
+          "affected_population_acc": {
+            "type": "integer",
+            "title": "Affected Population Acc"
+          },
+          "affected_population_med": {
+            "type": "integer",
+            "title": "Affected Population Med"
+          },
+          "affected_population_med_acc": {
+            "type": "integer",
+            "title": "Affected Population Med Acc"
+          },
+          "total_affected_population": {
+            "type": "integer",
+            "title": "Total Affected Population"
+          },
+          "beneficiary_id_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Beneficiary Id Hash"
+          },
+          "household_head_name_masked": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Household Head Name Masked"
+          },
+          "potable_water_demand_liters_day": {
+            "type": "number",
+            "title": "Potable Water Demand Liters Day"
+          },
+          "temporary_shelter_units_needed": {
+            "type": "integer",
+            "title": "Temporary Shelter Units Needed"
+          },
+          "livelihood_support_households": {
+            "type": "integer",
+            "title": "Livelihood Support Households"
+          },
+          "unmet_need_score": {
+            "type": "number",
+            "title": "Unmet Need Score"
+          },
+          "census_baseline_population": {
+            "type": "integer",
+            "title": "Census Baseline Population"
+          },
+          "exceeds_census_cap": {
+            "type": "boolean",
+            "title": "Exceeds Census Cap"
+          },
+          "urgency_tier": {
+            "type": "string",
+            "title": "Urgency Tier"
+          },
+          "time_horizon_days": {
+            "type": "integer",
+            "title": "Time Horizon Days"
+          },
+          "is_verified_demand": {
+            "type": "boolean",
+            "title": "Is Verified Demand"
+          },
+          "source_confidence": {
+            "type": "number",
+            "title": "Source Confidence"
+          },
+          "is_reconciled": {
+            "type": "boolean",
+            "title": "Is Reconciled"
+          },
+          "data_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Data Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "ward_code",
+          "district",
+          "sector",
+          "affected_households",
+          "displaced_persons",
+          "vulnerable_persons",
+          "affected_population_gen",
+          "affected_population_acc",
+          "affected_population_med",
+          "affected_population_med_acc",
+          "total_affected_population",
+          "potable_water_demand_liters_day",
+          "temporary_shelter_units_needed",
+          "livelihood_support_households",
+          "unmet_need_score",
+          "census_baseline_population",
+          "exceeds_census_cap",
+          "urgency_tier",
+          "time_horizon_days",
+          "is_verified_demand",
+          "source_confidence",
+          "is_reconciled",
+          "data_timestamp"
+        ],
+        "title": "StructuredRecoveryNeedResponse"
+      }
+    }
+  }
+}

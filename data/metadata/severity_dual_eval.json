@@ -1,0 +1,14 @@
+{
+  "impact_framework_consistency": {
+    "features": "Full feature set (6 inputs)",
+    "accuracy": 0.9711,
+    "macro_f1": 0.9695,
+    "critical_recall": 0.9682
+  },
+  "independent_predictive_validity": {
+    "features": "Text distress urgency score + disaster hazard code only",
+    "accuracy": 0.3303,
+    "macro_f1": 0.1744,
+    "critical_recall": 0.0127
+  }
+}

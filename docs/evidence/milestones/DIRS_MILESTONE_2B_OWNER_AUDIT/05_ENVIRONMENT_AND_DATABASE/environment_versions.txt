@@ -1,0 +1,14 @@
+DIRS ENVIRONMENT & DEPENDENCY VERSIONS
+==================================================
+Operating System: Windows-10-10.0.26300-SP0 (Windows 10 AMD64)
+Architecture: AMD64 / 64bit
+Python Executable: C:\Users\shubh\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe
+Python Version: 3.11.9 (tags/v3.11.9:de542f0, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+Google OR-Tools Version: 9.15.6755
+Pydantic Version: 2.13.4
+pytest Version: 9.0.3
+SQLAlchemy Version: 2.0.52
+Alembic Version: 1.19.2
+FastAPI Version: 0.141.1
+psycopg2 Version: 2.9.12 (dt dec pq3 ext lo64)
+==================================================

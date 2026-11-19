@@ -1,0 +1,53 @@
+COMMAND: python scripts/verify_frozen_hashes.py
+EXIT_CODE: 0
+TIMESTAMP: 2026-11-17T03:21:09.543785+00:00
+================================================================================
+
+================================================================================
+VERIFYING FROZEN MILESTONE 2B & MILESTONE 1 FILES AGAINST MANIFEST
+================================================================================
+[MATCH] backend/app/recovery/optimization/schemas.py
+  Current:  955f12541f96ea67982b1141a419ed4e6e3c0799bab6a6e34fb1dd93b6f74947
+  Expected: 955f12541f96ea67982b1141a419ed4e6e3c0799bab6a6e34fb1dd93b6f74947
+[MATCH] backend/app/recovery/optimization/recovery_cpsat_solver.py
+  Current:  8127b7b27eaa0b6a4788d2c01a7c59b6d00d44ab327f74e6c93af7981cc31ed0
+  Expected: 8127b7b27eaa0b6a4788d2c01a7c59b6d00d44ab327f74e6c93af7981cc31ed0
+[MATCH] backend/app/recovery/optimization/recovery_optimization_orchestrator.py
+  Current:  4fbe60c988ae4918c3a8c100c06fa2f31233a0637cd9febd4141ff988600d3ca
+  Expected: 4fbe60c988ae4918c3a8c100c06fa2f31233a0637cd9febd4141ff988600d3ca
+[MATCH] backend/app/recovery/optimization/infeasibility_advisor.py
+  Current:  a342be2037bf179b375ac6f3fc7c7d3b5408005da99e004fe786b784e99037f6
+  Expected: a342be2037bf179b375ac6f3fc7c7d3b5408005da99e004fe786b784e99037f6
+[MATCH] backend/app/recovery/optimization/__init__.py
+  Current:  f24ead50d7ca6c458241ad355a8f8882bf5d2333b38a515e7d7d5b8dd5434ae4
+  Expected: f24ead50d7ca6c458241ad355a8f8882bf5d2333b38a515e7d7d5b8dd5434ae4
+[MATCH] tests/backend/test_phase6d_cpsat_solver.py
+  Current:  3e6beb9bbf4ba75c0a6a91bfba43390b1b3f79c38ecbb9a9ee24a5c0435a4ddf
+  Expected: 3e6beb9bbf4ba75c0a6a91bfba43390b1b3f79c38ecbb9a9ee24a5c0435a4ddf
+[MATCH] docs/PHASE6D_B_MILESTONE_2B_RSK_M2_07_DECISION_RECORD.md
+  Current:  e3834261a793e9220da46075a39615e942b84a44738f4d0e8d80a9bb6ae8d2a5
+  Expected: e3834261a793e9220da46075a39615e942b84a44738f4d0e8d80a9bb6ae8d2a5
+[MATCH] backend/app/recovery/services/calendar_cost_service.py
+  Current:  2b346f37ae4400303c4b9ee58980168b984639e539acfa84fb304410ae7695e8
+  Expected: 2b346f37ae4400303c4b9ee58980168b984639e539acfa84fb304410ae7695e8
+[MATCH] backend/app/recovery/services/cash_flow_solvency_service.py
+  Current:  a6805ca49c28bdf73240d5f673237614513e6972ab310f6f9c1bc6e496974f8a
+  Expected: a6805ca49c28bdf73240d5f673237614513e6972ab310f6f9c1bc6e496974f8a
+[MATCH] backend/app/recovery/services/equity_calculation_service.py
+  Current:  e6a395412f4c0ff2cfe9b37978cced2033b8c2d8ec65416a26793005030fd005
+  Expected: e6a395412f4c0ff2cfe9b37978cced2033b8c2d8ec65416a26793005030fd005
+[MATCH] backend/app/recovery/services/life_safety_triage_service.py
+  Current:  cdbc891910bb261db49ee2a9d28b039929b177cbbb4463717125e86c11ac925d
+  Expected: cdbc891910bb261db49ee2a9d28b039929b177cbbb4463717125e86c11ac925d
+[MATCH] backend/app/recovery/services/mcpi_prioritization_service.py
+  Current:  49152808e153416cab2ae823f162fb4f561da0dfbe5cbfe4fb73b13c221e6ce9
+  Expected: 49152808e153416cab2ae823f162fb4f561da0dfbe5cbfe4fb73b13c221e6ce9
+[MATCH] backend/app/recovery/services/project_dependency_service.py
+  Current:  736799b3b580345fa3d0e963ab8bf1b4377b5d6bb5f123362de681aed23966e3
+  Expected: 736799b3b580345fa3d0e963ab8bf1b4377b5d6bb5f123362de681aed23966e3
+[MATCH] backend/app/recovery/services/vulnerability_scoring_service.py
+  Current:  e80ca8bc6bdcacd29f3f32993e6ef805b304374bd69f6e5a98218a9b199953e6
+  Expected: e80ca8bc6bdcacd29f3f32993e6ef805b304374bd69f6e5a98218a9b199953e6
+================================================================================
+OVERALL INTEGRITY: PASSED
+================================================================================

@@ -1,0 +1,186 @@
+COMMAND: python -m pytest tests/backend/test_phase6d_cpsat_solver.py -v
+EXIT_CODE: 0
+TIMESTAMP: 2026-11-17T03:19:48.901207+00:00
+================================================================================
+
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\shubh\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\shubh\Downloads\DIRS\tests\backend
+configfile: pytest.ini
+plugins: anyio-3.7.1, asyncio-1.3.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 105 items
+
+tests\backend\test_phase6d_cpsat_solver.py::test_01_empty_project_portfolio PASSED [  0%]
+tests\backend\test_phase6d_cpsat_solver.py::test_02_one_feasible_project PASSED [  1%]
+tests\backend\test_phase6d_cpsat_solver.py::test_03_multiple_feasible_projects PASSED [  2%]
+tests\backend\test_phase6d_cpsat_solver.py::test_04_mandatory_project_selection PASSED [  3%]
+tests\backend\test_phase6d_cpsat_solver.py::test_05_mandatory_projects_causing_infeasibility PASSED [  4%]
+tests\backend\test_phase6d_cpsat_solver.py::test_06_release_period_enforcement PASSED [  5%]
+tests\backend\test_phase6d_cpsat_solver.py::test_07_deadline_enforcement PASSED [  6%]
+tests\backend\test_phase6d_cpsat_solver.py::test_08_planning_horizon_enforcement PASSED [  7%]
+tests\backend\test_phase6d_cpsat_solver.py::test_09_dependency_precedence PASSED [  8%]
+tests\backend\test_phase6d_cpsat_solver.py::test_10_dependency_lag PASSED [  9%]
+tests\backend\test_phase6d_cpsat_solver.py::test_11_circular_dependency_rejection PASSED [ 10%]
+tests\backend\test_phase6d_cpsat_solver.py::test_12_resource_capacity_without_overlap PASSED [ 11%]
+tests\backend\test_phase6d_cpsat_solver.py::test_13_resource_capacity_with_overlap PASSED [ 12%]
+tests\backend\test_phase6d_cpsat_solver.py::test_14_multi_period_resource_occupancy PASSED [ 13%]
+tests\backend\test_phase6d_cpsat_solver.py::test_15_indivisible_funding_assignment PASSED [ 14%]
+tests\backend\test_phase6d_cpsat_solver.py::test_16_ineligible_funding_source_rejection PASSED [ 15%]
+tests\backend\test_phase6d_cpsat_solver.py::test_17_funding_assignment_infeasibility_counterexample PASSED [ 16%]
+tests\backend\test_phase6d_cpsat_solver.py::test_18_aggregate_budget_infeasibility PASSED [ 17%]
+tests\backend\test_phase6d_cpsat_solver.py::test_19_periodic_solvency_infeasibility PASSED [ 18%]
+tests\backend\test_phase6d_cpsat_solver.py::test_20_initial_cash_contribution PASSED [ 19%]
+tests\backend\test_phase6d_cpsat_solver.py::test_21_currency_conversion PASSED [ 20%]
+tests\backend\test_phase6d_cpsat_solver.py::test_22_decimal_rounding_directions PASSED [ 20%]
+tests\backend\test_phase6d_cpsat_solver.py::test_23_mcpi_quantization PASSED [ 21%]
+tests\backend\test_phase6d_cpsat_solver.py::test_24_acceleration_penalty PASSED [ 22%]
+tests\backend\test_phase6d_cpsat_solver.py::test_25_solver_optimal_status PASSED [ 23%]
+tests\backend\test_phase6d_cpsat_solver.py::test_26_solver_feasible_status_handling PASSED [ 24%]
+tests\backend\test_phase6d_cpsat_solver.py::test_27_solver_infeasible_status_handling PASSED [ 25%]
+tests\backend\test_phase6d_cpsat_solver.py::test_28_unknown_timeout_handling PASSED [ 26%]
+tests\backend\test_phase6d_cpsat_solver.py::test_29_model_invalid_handling PASSED [ 27%]
+tests\backend\test_phase6d_cpsat_solver.py::test_30_sha256_input_fingerprint PASSED [ 28%]
+tests\backend\test_phase6d_cpsat_solver.py::test_31_reproducibility_metadata PASSED [ 29%]
+tests\backend\test_phase6d_cpsat_solver.py::test_32_invalid_numerical_coefficients PASSED [ 30%]
+tests\backend\test_phase6d_cpsat_solver.py::test_33_integer_overflow_protection PASSED [ 31%]
+tests\backend\test_phase6d_cpsat_solver.py::test_34_all_six_diagnostic_categories PASSED [ 32%]
+tests\backend\test_phase6d_cpsat_solver.py::test_35_multiple_simultaneous_diagnostic_categories PASSED [ 33%]
+tests\backend\test_phase6d_cpsat_solver.py::test_36_acceleration_cannot_change_project_selection PASSED [ 34%]
+tests\backend\test_phase6d_cpsat_solver.py::test_37_acceleration_selects_earlier_schedule_for_equivalent_mcpi PASSED [ 35%]
+tests\backend\test_phase6d_cpsat_solver.py::test_38_assumption_core_reports_only_conflicting_subset PASSED [ 36%]
+tests\backend\test_phase6d_cpsat_solver.py::test_39_mandatory_safety_deadline_within_deadline PASSED [ 37%]
+tests\backend\test_phase6d_cpsat_solver.py::test_40_mandatory_safety_deadline_exceeded_causes_infeasible PASSED [ 38%]
+tests\backend\test_phase6d_cpsat_solver.py::test_41_mandatory_safety_deadline_with_predecessor_lag PASSED [ 39%]
+tests\backend\test_phase6d_cpsat_solver.py::test_42_non_mandatory_project_unaffected_by_safety_deadline PASSED [ 40%]
+tests\backend\test_phase6d_cpsat_solver.py::test_43_canonical_fingerprint_sensitivity PASSED [ 40%]
+tests\backend\test_phase6d_cpsat_solver.py::test_44_canonical_fingerprint_permutation_equivalence PASSED [ 41%]
+tests\backend\test_phase6d_cpsat_solver.py::test_45_integer_overflow_pre_model_rejection PASSED [ 42%]
+tests\backend\test_phase6d_cpsat_solver.py::test_46_post_solve_reconciliation_total_cost PASSED [ 43%]
+tests\backend\test_phase6d_cpsat_solver.py::test_47_post_solve_reconciliation_expenditure_conservation PASSED [ 44%]
+tests\backend\test_phase6d_cpsat_solver.py::test_48_post_solve_reconciliation_solvency_recurrence PASSED [ 45%]
+tests\backend\test_phase6d_cpsat_solver.py::test_49_invalid_retention_rate_rejected PASSED [ 46%]
+tests\backend\test_phase6d_cpsat_solver.py::test_50_unsupported_funding_tranches_rejected PASSED [ 47%]
+tests\backend\test_phase6d_cpsat_solver.py::test_51_normalize_to_ccu_rejections PASSED [ 48%]
+tests\backend\test_phase6d_cpsat_solver.py::test_52_duplicate_ids_and_invalid_dependencies_rejected PASSED [ 49%]
+tests\backend\test_phase6d_cpsat_solver.py::test_53_missing_expenditure_weights_fail_closed PASSED [ 50%]
+tests\backend\test_phase6d_cpsat_solver.py::test_54_empty_portfolio_validation_enforced PASSED [ 51%]
+tests\backend\test_phase6d_cpsat_solver.py::test_55_mandatory_project_missing_safety_deadline_fails_closed PASSED [ 52%]
+tests\backend\test_phase6d_cpsat_solver.py::test_56_mandatory_safety_deadline_exceeding_horizon_fails_closed PASSED [ 53%]
+tests\backend\test_phase6d_cpsat_solver.py::test_57_missing_expenditure_weights_default_fails_closed PASSED [ 54%]
+tests\backend\test_phase6d_cpsat_solver.py::test_58_explicitly_authorized_uniform_fallback_succeeds PASSED [ 55%]
+tests\backend\test_phase6d_cpsat_solver.py::test_59_sufficient_assumption_core_terminology_and_subset_mapping PASSED [ 56%]
+tests\backend\test_phase6d_cpsat_solver.py::test_60_aggregate_resource_expression_overflow PASSED [ 57%]
+tests\backend\test_phase6d_cpsat_solver.py::test_61_reconciliation_detects_release_period_violation PASSED [ 58%]
+tests\backend\test_phase6d_cpsat_solver.py::test_62_reconciliation_detects_completion_period_mismatch PASSED [ 59%]
+tests\backend\test_phase6d_cpsat_solver.py::test_63_reconciliation_detects_incorrect_expenditure_profile PASSED [ 60%]
+tests\backend\test_phase6d_cpsat_solver.py::test_64_reconciliation_detects_objective_value_mismatch PASSED [ 60%]
+tests\backend\test_phase6d_cpsat_solver.py::test_65_reconciliation_detects_mandatory_safety_deadline_violation PASSED [ 61%]
+tests\backend\test_phase6d_cpsat_solver.py::test_66_reconciliation_detects_unselected_mandatory_project PASSED [ 62%]
+tests\backend\test_phase6d_cpsat_solver.py::test_67_reconciliation_detects_altered_project_cost_with_consistent_profile_and_total PASSED [ 63%]
+tests\backend\test_phase6d_cpsat_solver.py::test_68_reconciliation_detects_altered_project_cost_inr_mismatch PASSED [ 64%]
+tests\backend\test_phase6d_cpsat_solver.py::test_69_reconciliation_detects_missing_period_solvency_record PASSED [ 65%]
+tests\backend\test_phase6d_cpsat_solver.py::test_70_reconciliation_detects_duplicate_period_solvency_record PASSED [ 66%]
+tests\backend\test_phase6d_cpsat_solver.py::test_71_reconciliation_detects_out_of_horizon_solvency_record PASSED [ 67%]
+tests\backend\test_phase6d_cpsat_solver.py::test_72_reconciliation_detects_negative_reconstructed_cash_balance PASSED [ 68%]
+tests\backend\test_phase6d_cpsat_solver.py::test_73_reconciliation_detects_duplicate_project_ids_in_scheduled PASSED [ 69%]
+tests\backend\test_phase6d_cpsat_solver.py::test_74_reconciliation_detects_unknown_project_id_in_scheduled PASSED [ 70%]
+tests\backend\test_phase6d_cpsat_solver.py::test_75_reconciliation_detects_unselected_project_with_active_schedule PASSED [ 71%]
+tests\backend\test_phase6d_cpsat_solver.py::test_76_reconciliation_detects_selected_project_missing_schedule_fields PASSED [ 72%]
+tests\backend\test_phase6d_cpsat_solver.py::test_77_optimal_with_is_optimal_false_rejected PASSED [ 73%]
+tests\backend\test_phase6d_cpsat_solver.py::test_78_feasible_with_is_optimal_true_rejected PASSED [ 74%]
+tests\backend\test_phase6d_cpsat_solver.py::test_79_optimal_with_missing_objective_rejected PASSED [ 75%]
+tests\backend\test_phase6d_cpsat_solver.py::test_80_feasible_with_missing_best_bound_rejected PASSED [ 76%]
+tests\backend\test_phase6d_cpsat_solver.py::test_81_incorrect_best_bound_rejected PASSED [ 77%]
+tests\backend\test_phase6d_cpsat_solver.py::test_82_incorrect_optimality_gap_rejected PASSED [ 78%]
+tests\backend\test_phase6d_cpsat_solver.py::test_83_nan_or_infinite_metadata_rejected PASSED [ 79%]
+tests\backend\test_phase6d_cpsat_solver.py::test_84_exact_objective_mismatch_rejected PASSED [ 80%]
+tests\backend\test_phase6d_cpsat_solver.py::test_85_large_integer_objective_near_safe_limit PASSED [ 80%]
+tests\backend\test_phase6d_cpsat_solver.py::test_86_exact_integer_objective_preservation_across_serialization PASSED [ 81%]
+tests\backend\test_phase6d_cpsat_solver.py::test_87_missing_exact_objective_on_optimal_rejected PASSED [ 82%]
+tests\backend\test_phase6d_cpsat_solver.py::test_88_missing_exact_objective_on_feasible_rejected PASSED [ 83%]
+tests\backend\test_phase6d_cpsat_solver.py::test_89_missing_exact_bound_on_optimal_rejected PASSED [ 84%]
+tests\backend\test_phase6d_cpsat_solver.py::test_90_missing_conservative_bound_on_feasible_rejected PASSED [ 85%]
+tests\backend\test_phase6d_cpsat_solver.py::test_91_bound_conversion_around_2_to_53 PASSED [ 86%]
+tests\backend\test_phase6d_cpsat_solver.py::test_92_bound_conversion_near_10_to_16 PASSED [ 87%]
+tests\backend\test_phase6d_cpsat_solver.py::test_93_bound_conversion_near_10_to_17 PASSED [ 88%]
+tests\backend\test_phase6d_cpsat_solver.py::test_94_proof_conversion_never_understates_upper_bound PASSED [ 89%]
+tests\backend\test_phase6d_cpsat_solver.py::test_95_optimal_exact_bound_equals_exact_objective PASSED [ 90%]
+tests\backend\test_phase6d_cpsat_solver.py::test_96_feasible_exact_objective_does_not_exceed_conservative_upper_bound PASSED [ 91%]
+tests\backend\test_phase6d_cpsat_solver.py::test_97_optimal_missing_exact_best_bound_rejected PASSED [ 92%]
+tests\backend\test_phase6d_cpsat_solver.py::test_98_optimal_missing_conservative_best_bound_rejected PASSED [ 93%]
+tests\backend\test_phase6d_cpsat_solver.py::test_99_feasible_missing_conservative_best_bound_rejected PASSED [ 94%]
+tests\backend\test_phase6d_cpsat_solver.py::test_100_feasible_exact_and_conservative_bound_mismatch_rejected PASSED [ 95%]
+tests\backend\test_phase6d_cpsat_solver.py::test_101_optimal_bound_inconsistent_with_exact_objective_rejected PASSED [ 96%]
+tests\backend\test_phase6d_cpsat_solver.py::test_102_stage_12_detects_self_consistent_tampered_metadata PASSED [ 97%]
+tests\backend\test_phase6d_cpsat_solver.py::test_103_non_solution_status_rejects_each_metadata_field_individually PASSED [ 98%]
+tests\backend\test_phase6d_cpsat_solver.py::test_104_ulp_boundary_mathematical_derivation PASSED [ 99%]
+tests\backend\test_phase6d_cpsat_solver.py::test_105_optimality_gap_display_semantics PASSED [100%]
+
+============================== warnings summary ===============================
+backend\app\config.py:4
+  C:\Users\shubh\Downloads\DIRS\backend\app\config.py:4: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class Settings(BaseSettings):
+
+backend\app\schemas\user.py:59
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\user.py:59: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class UserResponse(UserBase):
+
+backend\app\schemas\incident.py:6
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\incident.py:6: PydanticDeprecatedSince20: Using extra keyword arguments on `Field` is deprecated and will be removed. Use `json_schema_extra` instead. (Extra keys: 'example'). Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    title: str = Field(..., example="Severe Flooding near Riverfront Road")
+
+backend\app\schemas\incident.py:7
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\incident.py:7: PydanticDeprecatedSince20: Using extra keyword arguments on `Field` is deprecated and will be removed. Use `json_schema_extra` instead. (Extra keys: 'example'). Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    disaster_type: str = Field(..., example="FLOOD") # FLOOD, CYCLONE, FIRE, LANDSLIDE, EARTHQUAKE
+
+backend\app\schemas\incident.py:58
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\incident.py:58: PydanticDeprecatedSince20: Using extra keyword arguments on `Field` is deprecated and will be removed. Use `json_schema_extra` instead. (Extra keys: 'example'). Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    action: str = Field(..., example="VERIFY") # VERIFY or REJECT
+
+backend\app\schemas\incident.py:65
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\incident.py:65: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class IncidentResponse(BaseModel):
+
+<frozen importlib._bootstrap>:241
+  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type SwigPyPacked has no __module__ attribute
+
+<frozen importlib._bootstrap>:241
+  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type SwigPyObject has no __module__ attribute
+
+<frozen importlib._bootstrap>:241
+  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type swigvarlink has no __module__ attribute
+
+backend\app\schemas\shelter.py:42
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\shelter.py:42: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class ShelterResponse(BaseModel):
+
+backend\app\schemas\resource.py:14
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\resource.py:14: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class ResourceResponse(BaseModel):
+
+backend\app\schemas\alert.py:13
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\alert.py:13: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class AlertResponse(BaseModel):
+
+backend\app\main.py:20
+  C:\Users\shubh\Downloads\DIRS\backend\app\main.py:20: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\fastapi\applications.py:4681
+  C:\Users\shubh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\fastapi\applications.py:4681: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)  # ty: ignore[deprecated]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+====================== 105 passed, 14 warnings in 1.32s =======================

@@ -1,0 +1,10 @@
+DIRS EXECUTION ENVIRONMENT AUDIT
+============================================================
+Platform:            Windows-10-10.0.26300-SP0
+Python:              3.11.9 (C:\Users\shubh\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe)
+FastAPI:             0.141.1
+Pydantic:            2.13.4
+OR-Tools:            9.15.6755
+SQLAlchemy:          2.0.52
+Pytest:              9.0.3
+Audit Generation:    2026-11-17T03:21:09.577775+00:00

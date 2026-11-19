@@ -1,0 +1,44 @@
+{
+  "model_name": "cv-damage-classifier-resnet18",
+  "version": "2.0.0-realworld",
+  "architecture": "ResNet18 Deep Vision Backbone + RandomForest Classifier",
+  "pretrained_source": "torchvision.models.ResNet18_Weights.DEFAULT (ImageNet Pretrained)",
+  "input_resolution": "224x224 RGB",
+  "classifier_artifact": "backend/app/ai/models/cv_damage_model.pkl",
+  "classifier_size_bytes": 213433,
+  "is_self_contained": true,
+  "external_download_policy": "Requires torchvision PyTorch weights cache or pre-extracted 512-dim embedding features",
+  "raw_satellite_benchmark_metrics": {
+    "test_samples": 625,
+    "macro_f1": 0.821,
+    "accuracy": 0.8224,
+    "destroyed_recall": 0.8089,
+    "severe_recall": 0.7628,
+    "confusion_matrix": [
+      [
+        156,
+        0,
+        0,
+        0
+      ],
+      [
+        21,
+        112,
+        23,
+        0
+      ],
+      [
+        0,
+        20,
+        119,
+        17
+      ],
+      [
+        0,
+        0,
+        30,
+        127
+      ]
+    ]
+  }
+}

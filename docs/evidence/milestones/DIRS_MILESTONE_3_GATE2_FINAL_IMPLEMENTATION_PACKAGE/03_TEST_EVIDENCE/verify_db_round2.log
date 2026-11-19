@@ -1,0 +1,15 @@
+COMMAND: python scripts/verify_db_round2.py
+EXIT_CODE: 0
+TIMESTAMP: 2026-11-17T03:21:09.401762+00:00
+================================================================================
+
+=== ALEMBIC CURRENT ===
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+phase6b_recovery_foundation (head)
+Total tables detected by inspector: 40
+Base tables in public schema: 40
+recovery_projects with non-null priority_score: 0
+Alembic version in DB: phase6b_recovery_foundation

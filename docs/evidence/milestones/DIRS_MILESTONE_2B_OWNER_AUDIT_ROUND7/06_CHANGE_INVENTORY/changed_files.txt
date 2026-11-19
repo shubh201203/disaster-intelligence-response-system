@@ -1,0 +1,11 @@
+MILESTONE 2B FINAL ROUND 7 FILE INVENTORY
+============================================================
+Modified or Added Files in Milestone 2B Implementation:
+1. backend/app/recovery/optimization/schemas.py (Added conservative_best_bound, documented contract, to_dict)
+2. backend/app/recovery/optimization/recovery_cpsat_solver.py (Updated ULP derivation docstring, conservative optimality gap computation)
+3. backend/app/recovery/optimization/recovery_optimization_orchestrator.py (Strict independent metadata checks in Stage 0 & Stage 12, OPTIMAL equality, FEASIBLE conservative bound enforcement, reject non-solution metadata)
+4. backend/app/recovery/optimization/infeasibility_advisor.py
+5. backend/app/recovery/optimization/__init__.py
+6. tests/backend/test_phase6d_cpsat_solver.py (105 tests: added Tests 97-105)
+7. docs/PHASE6D_B_MILESTONE_2B_FINAL_ROUND7_REPORT.md
+8. docs/PHASE6D_B_MILESTONE_2B_RSK_M2_07_DECISION_RECORD.md

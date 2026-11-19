@@ -1,0 +1,20 @@
+DIRS MILESTONE 2B — ROUND 1 CORRECTION CHANGE INVENTORY
+======================================================================
+Audit Round 1 Remediation Scope: Authorized corrections strictly confined to:
+1. backend/app/recovery/optimization/schemas.py
+2. backend/app/recovery/optimization/recovery_cpsat_solver.py
+3. backend/app/recovery/optimization/recovery_optimization_orchestrator.py
+4. backend/app/recovery/optimization/infeasibility_advisor.py
+5. backend/app/recovery/optimization/__init__.py
+6. tests/backend/test_phase6d_cpsat_solver.py
+7. docs/PHASE6D_B_MILESTONE_2B_REPORT.md
+8. docs/PHASE6D_B_MILESTONE_2B_CORRECTION_REPORT.md
+
+Frozen Files Untouched:
+- All Milestone 1 mathematical services (backend/app/recovery/services/)
+- All existing ORM models (backend/app/models/)
+- All existing API routers (backend/app/routers/)
+- All frontend source code (frontend/)
+- All previous phase migrations (backend/alembic/versions/)
+- All approved Milestone 2A design documents
+======================================================================

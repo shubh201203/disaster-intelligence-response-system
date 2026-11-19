@@ -1,0 +1,34 @@
+{
+  "benchmark_name": "DIRS-50 Multi-Commodity Resource Allocation Benchmark",
+  "num_incidents": 50,
+  "num_depots": 25,
+  "results": {
+    "CP_SAT": {
+      "solver_status": "FEASIBLE",
+      "operational_feasibility": "FEASIBLE",
+      "runtime_ms": 5233.621,
+      "unmet_demand_qty": 0.0,
+      "unmet_demand_pct": 0.0,
+      "priority_weighted_unmet": 0.0,
+      "critical_fulfillment_pct": 100.0,
+      "mean_travel_time_mins": 24.6,
+      "resource_utilization_pct": 65.65
+    },
+    "GREEDY_PROXIMITY": {
+      "runtime_ms": 35.454,
+      "unmet_demand_qty": 0.0,
+      "unmet_demand_pct": 0.0,
+      "priority_weighted_unmet": 0.0,
+      "critical_fulfillment_pct": 100.0,
+      "mean_travel_time_mins": 6.1
+    },
+    "FCFS_QUEUE": {
+      "runtime_ms": 37.481,
+      "unmet_demand_qty": 0.0,
+      "unmet_demand_pct": 0.0,
+      "priority_weighted_unmet": 0.0,
+      "critical_fulfillment_pct": 100.0,
+      "mean_travel_time_mins": 6.1
+    }
+  }
+}

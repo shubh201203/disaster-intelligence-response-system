@@ -1,0 +1,12 @@
+DIRS EXECUTION ENVIRONMENT AUDIT — MILESTONE 3 GATE 1
+============================================================
+Timestamp: 2026-11-17T04:54:58.438115
+OS: Windows 10 (10.0.26300)
+Architecture: AMD64
+Python: 3.11.9
+ortools: 9.15.6755
+pydantic: 2.13.4
+pytest: 9.0.3
+sqlalchemy: 2.0.52
+fastapi: 0.141.1
+============================================================

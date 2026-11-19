@@ -1,0 +1,60 @@
+DIRS MILESTONE 2B FILESYSTEM CHANGE INVENTORY
+==================================================
+Audit Execution Timestamp: 2026-11-17T01:38:00+05:30
+Scope: Phase 6D-B Milestone 2B Implementation
+
+1. Files Created During Milestone 2B (Authorized Application Scope)
+-------------------------------------------------------------------
+The following 5 implementation files were created in backend/app/recovery/optimization/:
+1. backend/app/recovery/optimization/schemas.py (345 lines, 13,878 bytes)
+   SHA-256: d2863e571de6e4ae8d30e0600cf2fe0f2fc190578663884e9be9db255fc7f17b
+   Responsibility: Integer scaling (CCU), currency enums, MCPI quantization, capped apportionment, dataclass contracts.
+
+2. backend/app/recovery/optimization/infeasibility_advisor.py (501 lines, 22,231 bytes)
+   SHA-256: b89f28f364f89d34e9e5048be6bba78c9ea24d266e7eaeeef5fc951a3194a287
+   Responsibility: Pre-solve forensic diagnosis across 6 categories; CP-SAT assumption core extraction.
+
+3. backend/app/recovery/optimization/recovery_cpsat_solver.py (583 lines, 24,964 bytes)
+   SHA-256: c763c22fc6beeef8c9c0fef8b89d4431535492fe34d8234857b2f4f899981885
+   Responsibility: Google OR-Tools CP-SAT model builder and integer programming solver.
+
+4. backend/app/recovery/optimization/recovery_optimization_orchestrator.py (186 lines, 8,245 bytes)
+   SHA-256: 9ea05ba40309dd0a56396924b17df30c1be7822a1f4b32ea26875508c908ae3e
+   Responsibility: Request validation, empty portfolio handling, Kahn's cycle pre-check, solver invocation.
+
+5. backend/app/recovery/optimization/__init__.py (51 lines, 1,944 bytes)
+   SHA-256: 2b3b9e9c7bd60be24c47f711204646cb0ca42f7c00eb5ee82012d26f0bf60833
+   Responsibility: Public namespace exporting 20 classes, enums, dataclasses, and functions.
+
+2. Test Files Created During Milestone 2B (Authorized Test Scope)
+-----------------------------------------------------------------
+6. tests/backend/test_phase6d_cpsat_solver.py (771 lines, 30,341 bytes)
+   SHA-256: 93b35191ef5c26b52c0e86b24eb1aa4172f8832a2f8c5b1b4d081bbf53266205
+   Responsibility: 35 exhaustive unit, integration, and property test scenarios verifying all solver behaviors.
+
+3. Deliverables Authored During Milestone 2B (Authorized Docs Scope)
+--------------------------------------------------------------------
+7. docs/PHASE6D_B_MILESTONE_2B_REPORT.md (272 lines, 16,842 bytes)
+   SHA-256: 772d7778e56ec47907f9c878f0beee92a7fb3b2ea4a938c4b9cf441e8d47b59e
+   Responsibility: Comprehensive 15-section engineering report for Milestone 2B.
+
+4. Audit Export Directory Created (Audit Scope)
+-----------------------------------------------
+8. DIRS_MILESTONE_2B_OWNER_AUDIT/
+   Separate isolated evidence export directory outside application source paths.
+
+5. Critical Files Verified Strictly UNTOUCHED / UNMODIFIED
+----------------------------------------------------------
+- backend/app/recovery/services/mcpi_prioritization_service.py (UNMODIFIED)
+- backend/app/recovery/services/vulnerability_scoring_service.py (UNMODIFIED)
+- backend/app/recovery/services/life_safety_triage_service.py (UNMODIFIED)
+- backend/app/recovery/services/project_dependency_service.py (UNMODIFIED)
+- backend/app/recovery/services/calendar_cost_service.py (UNMODIFIED)
+- backend/app/recovery/services/equity_calculation_service.py (UNMODIFIED)
+- backend/app/recovery/services/cash_flow_solvency_service.py (UNMODIFIED)
+- backend/app/models/* (ALL ORM MODELS UNMODIFIED)
+- backend/app/routers/* (ALL API ROUTERS UNMODIFIED)
+- backend/alembic/versions/* (ZERO NEW MIGRATIONS)
+- frontend/* (FRONTEND COMPLETELY UNMODIFIED)
+- docs/PHASE6D_B_MILESTONE_2A_* (ALL APPROVED DESIGN DOCS UNMODIFIED)
+==================================================

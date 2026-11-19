@@ -1,0 +1,27 @@
+DIRS MILESTONE 2B — OWNER AUDIT ROUND 2 CORRECTION CHANGE INVENTORY
+======================================================================
+Remediation Scope: Authorized corrections strictly confined to:
+1. backend/app/recovery/optimization/schemas.py
+   - allow_uniform_weight_fallback default changed from True to False
+   - validate_numerical_safety checks all aggregate linear expressions (resource sums, fund sums, district sums, cumulative inflows, spend, objective bound)
+   - InfeasibilityDiagnosticReport aligned with is_assumption_core_sufficient=True and is_assumption_core_minimal=False
+2. backend/app/recovery/optimization/infeasibility_advisor.py
+   - Terminology aligned to sufficient assumption core; removed minimality/uniqueness claims
+3. backend/app/recovery/optimization/recovery_cpsat_solver.py
+   - Fail closed when mandatory project lacks valid max_safety_start_period
+   - Fail closed when candidate lacks expenditure_weights unless allow_uniform_weight_fallback=True
+   - Formulated w[pid] == 1 and start_var[pid] <= t_safety as hard, non-relaxable model constraints
+4. backend/app/recovery/optimization/recovery_optimization_orchestrator.py
+   - Pre-solve validation of mandatory safety deadlines
+   - 12-invariant independent post-solve reconciliation protocol
+5. tests/backend/test_phase6d_cpsat_solver.py
+   - Preserved all 54 existing tests (66 total tests, Tests 55–66 added)
+6. docs/PHASE6D_B_MILESTONE_2B_CORRECTION_ROUND2_REPORT.md
+   - Comprehensive audit remediation report
+
+Frozen Components Preserved (100% Unmodified):
+- All Milestone 1 mathematical services
+- Phases 1 through 6C
+- Database schema, ORM models, Alembic migrations
+- API routers and frontend
+======================================================================

@@ -1,0 +1,20 @@
+DIRS MILESTONE 2B — FINAL OWNER AUDIT CORRECTION CHANGE INVENTORY
+======================================================================
+Remediation Scope: Authorized corrections strictly confined to:
+1. backend/app/recovery/optimization/recovery_optimization_orchestrator.py
+   - Independent cost reconstruction from raw candidate estimated_cost & currency
+   - Propagation of independently reconstructed costs to all downstream portfolio checks
+   - Solvency record completeness (exact bijective coverage of [1, T], duplicate/out-of-horizon/missing detection)
+   - Reconstructed cash balance recurrence and negative balance detection
+   - Returned schedule integrity pre-checks (duplicate IDs, unknown IDs, unselected isolation, complete schedule records)
+2. tests/backend/test_phase6d_cpsat_solver.py
+   - Preserved all 66 existing tests (76 total tests, Tests 67–76 added)
+3. docs/PHASE6D_B_MILESTONE_2B_FINAL_OWNER_AUDIT_REPORT.md
+   - Final audit correction report
+
+Frozen Components Preserved (100% Unmodified):
+- All Milestone 1 mathematical services
+- Phases 1 through 6C
+- Database schema, ORM models, Alembic migrations
+- API routers and frontend
+======================================================================

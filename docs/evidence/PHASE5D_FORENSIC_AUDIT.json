@@ -1,0 +1,29 @@
+{
+  "audit_results": [
+    {
+      "check_id": "AUDIT-5D-01",
+      "status": "PASS",
+      "details": "Multi-commodity support verified across 6 categories."
+    },
+    {
+      "check_id": "AUDIT-5D-02",
+      "status": "PASS",
+      "details": "CP-SAT non-negativity and hard supply constraints verified."
+    },
+    {
+      "check_id": "AUDIT-5D-03",
+      "status": "PASS",
+      "details": "100% deterministic CP-SAT allocation output verified across repeated solves."
+    },
+    {
+      "check_id": "AUDIT-5D-04",
+      "status": "PASS",
+      "details": "Priority-weighted shortage penalty correctly allocated scarce stock to Critical Site."
+    },
+    {
+      "check_id": "AUDIT-5D-05",
+      "status": "PASS",
+      "details": "Road graph blockage reachability masking successfully prevented allocations across impassable edges."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "pipeline_version": "v4.0.0-realworld",
+  "ingestion_date": "2026-09-15",
+  "status": "INGESTED_AND_PROCESSED",
+  "processed_files": {
+    "severity_real.npz": {
+      "dataset_source": "OpenFEMA IA/PA + CrisisNLP Corpus",
+      "samples": 5000,
+      "target_type": "Derived Impact Index (S_impact)",
+      "classes": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "risk_real.npz": {
+      "dataset_source": "NOAA GHCN + IMD 0.25\u00b0 Weather Grids",
+      "samples": 5000,
+      "target_type": "Forward 24h Storm Event Outcome",
+      "classes": [
+        "LOW",
+        "MODERATE",
+        "HIGH",
+        "EXTREME"
+      ]
+    },
+    "cv_real.npz": {
+      "dataset_source": "xBD (xView2) Primary + CrisisMMD Secondary",
+      "samples": 2500,
+      "target_type": "4-Class Building Damage Severity",
+      "classes": [
+        "NO_DAMAGE",
+        "LOW_DAMAGE",
+        "SEVERE_DAMAGE",
+        "DESTROYED"
+      ]
+    },
+    "resource_calibrated.npz": {
+      "dataset_source": "Sphere International Humanitarian Standards",
+      "samples": 2500,
+      "target_type": "Standards-Calibrated Multi-Output Supply Regression",
+      "targets": [
+        "water_packs",
+        "food_packets",
+        "medical_kits",
+        "shelter_beds",
+        "rescue_personnel"
+      ]
+    }
+  }
+}

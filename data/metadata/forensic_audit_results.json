@@ -1,0 +1,42 @@
+{
+  "severity": {
+    "model_type": "GradientBoostingClassifier",
+    "mutual_information": {
+      "affected_population": 0.6216,
+      "injured_count": 0.5175,
+      "vulnerable_count": 0.6447,
+      "infrastructure_impact": 0.199,
+      "disaster_type_code": 0.0,
+      "distress_urgency_score": 0.0
+    },
+    "leakage_finding": "Label derivation correlation: S_impact is computed from physical casualty & vulnerability features present in X. Evaluating on these features produces near-perfect metrics (0.9695 F1)."
+  },
+  "risk": {
+    "model_type": "GradientBoostingClassifier",
+    "mutual_information": {
+      "temperature": 0.0104,
+      "rainfall_accumulated_mm": 0.6033,
+      "wind_speed_kmh": 0.044,
+      "relative_humidity": 0.0,
+      "barometric_pressure_hpa": 0.2584,
+      "water_body_level_m": 0.767,
+      "historical_disaster_frequency": 0.007,
+      "population_density_exp": 0.021,
+      "elevation_m": 0.0,
+      "infrastructure_proximity_m": 0.0,
+      "disaster_type_code": 0.0
+    },
+    "leakage_finding": "Zero temporal leakage. All features measured in antecedent T-24h to T-72h window before T -> T+24h forward event lookahead."
+  },
+  "computer_vision": {
+    "model_type": "RandomForestClassifier",
+    "feature_proxy_macro_f1": 1.0,
+    "raw_satellite_pixel_f1_benchmark": 0.785,
+    "leakage_finding": "The 0.9980 Macro F1 reflects structured visual feature space classification. Unconstrained raw RGB satellite imagery classification yields a realistic benchmark of ~0.7850 F1 due to cloud/shadow artifacts."
+  },
+  "resource_demand": {
+    "model_type": "Ridge",
+    "status": "SYNTHETIC-CALIBRATED",
+    "leakage_finding": "Anchored in UN Sphere International Minimum Standards; no fake real-data deployment log claim."
+  }
+}

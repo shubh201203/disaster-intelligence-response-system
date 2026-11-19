@@ -1,0 +1,255 @@
+{
+  "timing_stats": {
+    "dataset_gen_ms_median": 0.5,
+    "matrix_retrieval_ms_median": 32.8,
+    "model_construction_ms_median": 181.16,
+    "cpsat_solve_ms_median": 1505.88,
+    "total_execution_ms_median": 1737.84,
+    "total_execution_ms_p95": 1772.77,
+    "total_execution_ms_min": 1731.13,
+    "total_execution_ms_max": 1798.0
+  },
+  "target_met": true,
+  "scenarios": {
+    "SCENARIO_5D_A": {
+      "description": "Supply > Demand (Unconstrained)",
+      "CP_SAT": {
+        "unmet_pct": 0.0,
+        "priority_weighted_unmet": 0.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 27.3,
+        "total_travel_time_mins": 3307.2,
+        "total_travel_distance_km": 2608.3,
+        "resource_utilization_pct": 32.06,
+        "objective_value": 790.34,
+        "runtime_ms": 2042.437
+      },
+      "GREEDY": {
+        "unmet_pct": 0.0,
+        "priority_weighted_unmet": 0.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 12.4,
+        "total_travel_time_mins": 1552.2,
+        "total_travel_distance_km": 1194.7,
+        "resource_utilization_pct": 32.06,
+        "objective_value": 0.0,
+        "runtime_ms": 8.972
+      },
+      "FCFS": {
+        "unmet_pct": 0.0,
+        "priority_weighted_unmet": 0.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 12.6,
+        "total_travel_time_mins": 1577.9,
+        "total_travel_distance_km": 1214.3,
+        "resource_utilization_pct": 32.06,
+        "objective_value": 0.0,
+        "runtime_ms": 9.744
+      }
+    },
+    "SCENARIO_5D_B": {
+      "description": "Supply < Demand (Severe Scarcity)",
+      "CP_SAT": {
+        "unmet_pct": 68.81,
+        "priority_weighted_unmet": 1363172.3,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 23.6,
+        "total_travel_time_mins": 2533.6,
+        "total_travel_distance_km": 2005.4,
+        "resource_utilization_pct": 100.0,
+        "objective_value": 46664011.96,
+        "runtime_ms": 2044.515
+      },
+      "GREEDY": {
+        "unmet_pct": 68.81,
+        "priority_weighted_unmet": 1363172.3,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 23.6,
+        "total_travel_time_mins": 2096.8,
+        "total_travel_distance_km": 1634.6,
+        "resource_utilization_pct": 100.0,
+        "objective_value": 0.0,
+        "runtime_ms": 8.841
+      },
+      "FCFS": {
+        "unmet_pct": 68.81,
+        "priority_weighted_unmet": 1992724.9,
+        "critical_fulfillment_pct": 0.0,
+        "mean_travel_time_mins": 19.6,
+        "total_travel_time_mins": 1844.1,
+        "total_travel_distance_km": 1403.2,
+        "resource_utilization_pct": 100.0,
+        "objective_value": 0.0,
+        "runtime_ms": 8.792
+      }
+    },
+    "SCENARIO_5D_C": {
+      "description": "Priority Competition (Critical Hospital vs Minor Clinic for 50 Medical Kits)",
+      "CP_SAT": {
+        "unmet_pct": 50.0,
+        "priority_weighted_unmet": 1000.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 17.3,
+        "total_travel_time_mins": 17.3,
+        "total_travel_distance_km": 13.0,
+        "resource_utilization_pct": 100.0,
+        "objective_value": 20019.94,
+        "runtime_ms": 2.704
+      },
+      "GREEDY": {
+        "unmet_pct": 50.0,
+        "priority_weighted_unmet": 1000.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 17.3,
+        "total_travel_time_mins": 17.3,
+        "total_travel_distance_km": 13.0,
+        "resource_utilization_pct": 100.0,
+        "objective_value": 0.0,
+        "runtime_ms": 0.315
+      },
+      "FCFS": {
+        "unmet_pct": 50.0,
+        "priority_weighted_unmet": 1000.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 17.3,
+        "total_travel_time_mins": 17.3,
+        "total_travel_distance_km": 13.0,
+        "resource_utilization_pct": 100.0,
+        "objective_value": 0.0,
+        "runtime_ms": 0.244
+      }
+    },
+    "SCENARIO_5D_D": {
+      "description": "Unreachable Nearest Depot (D1 Impassable, D2 Reachable)",
+      "CP_SAT": {
+        "unmet_pct": 0.0,
+        "priority_weighted_unmet": 0.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 5.0,
+        "total_travel_time_mins": 5.0,
+        "total_travel_distance_km": 5.0,
+        "resource_utilization_pct": 30.0,
+        "objective_value": 6.0,
+        "runtime_ms": 2.146
+      },
+      "GREEDY": {
+        "unmet_pct": 0.0,
+        "priority_weighted_unmet": 0.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 5.0,
+        "total_travel_time_mins": 5.0,
+        "total_travel_distance_km": 5.0,
+        "resource_utilization_pct": 30.0,
+        "objective_value": 0.0,
+        "runtime_ms": 0.071
+      },
+      "FCFS": {
+        "unmet_pct": 0.0,
+        "priority_weighted_unmet": 0.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 5.0,
+        "total_travel_time_mins": 5.0,
+        "total_travel_distance_km": 5.0,
+        "resource_utilization_pct": 30.0,
+        "objective_value": 0.0,
+        "runtime_ms": 0.037
+      }
+    },
+    "SCENARIO_5D_E": {
+      "description": "Multi-Depot Supply Competition (1000 Water needed, depots have 400 each)",
+      "CP_SAT": {
+        "unmet_pct": 0.0,
+        "priority_weighted_unmet": 0.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 33.3,
+        "total_travel_time_mins": 100.0,
+        "total_travel_distance_km": 100.0,
+        "resource_utilization_pct": 83.33,
+        "objective_value": 120.0,
+        "runtime_ms": 7.528
+      },
+      "GREEDY": {
+        "unmet_pct": 0.0,
+        "priority_weighted_unmet": 0.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 33.3,
+        "total_travel_time_mins": 100.0,
+        "total_travel_distance_km": 100.0,
+        "resource_utilization_pct": 83.33,
+        "objective_value": 0.0,
+        "runtime_ms": 0.131
+      },
+      "FCFS": {
+        "unmet_pct": 0.0,
+        "priority_weighted_unmet": 0.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 33.3,
+        "total_travel_time_mins": 100.0,
+        "total_travel_distance_km": 100.0,
+        "resource_utilization_pct": 83.33,
+        "objective_value": 0.0,
+        "runtime_ms": 0.083
+      }
+    },
+    "SCENARIO_5D_F": {
+      "description": "Commodity-Specific Scarcity (Surplus Water, Deficit Medical Kits)",
+      "CP_SAT": {
+        "unmet_pct": 15.83,
+        "priority_weighted_unmet": 16150.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 17.3,
+        "total_travel_time_mins": 34.6,
+        "total_travel_distance_km": 26.0,
+        "resource_utilization_pct": 10.09,
+        "objective_value": 1695769.94,
+        "runtime_ms": 1.324
+      },
+      "GREEDY": {
+        "unmet_pct": 15.83,
+        "priority_weighted_unmet": 16150.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 17.3,
+        "total_travel_time_mins": 34.6,
+        "total_travel_distance_km": 26.0,
+        "resource_utilization_pct": 10.09,
+        "objective_value": 0.0,
+        "runtime_ms": 0.175
+      },
+      "FCFS": {
+        "unmet_pct": 15.83,
+        "priority_weighted_unmet": 16150.0,
+        "critical_fulfillment_pct": 100.0,
+        "mean_travel_time_mins": 17.3,
+        "total_travel_time_mins": 34.6,
+        "total_travel_distance_km": 26.0,
+        "resource_utilization_pct": 10.09,
+        "objective_value": 0.0,
+        "runtime_ms": 0.136
+      }
+    }
+  },
+  "objective_scaling": {
+    "Z_unmet": {
+      "raw": 1402817.0999999999,
+      "weighted": 14028170.999999998,
+      "percentage": 30.060649117842132
+    },
+    "Z_penalty": {
+      "raw": 6527024.427000001,
+      "weighted": 32635122.135000005,
+      "percentage": 69.93306222301953
+    },
+    "Z_time": {
+      "raw": 2533.599999999999,
+      "weighted": 2533.599999999999,
+      "percentage": 0.005429193913088513
+    },
+    "Z_distance": {
+      "raw": 2005.4,
+      "weighted": 401.08000000000004,
+      "percentage": 0.0008594652252374257
+    },
+    "total_objective": 46666227.815000005
+  },
+  "determinism_verified": true
+}

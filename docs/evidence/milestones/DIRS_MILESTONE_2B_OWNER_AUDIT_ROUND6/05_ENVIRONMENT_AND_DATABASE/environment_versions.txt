@@ -1,0 +1,12 @@
+DIRS EXECUTION ENVIRONMENT AUDIT (FINAL ROUND 6)
+============================================================
+Timestamp: 2026-11-17T04:02:39.760985
+OS: Windows 10 (10.0.26300)
+Architecture: AMD64
+Python: 3.11.9
+ortools: 9.15.6755
+pydantic: 2.13.4
+pytest: 9.0.3
+sqlalchemy: 2.0.52
+fastapi: 0.141.1
+============================================================

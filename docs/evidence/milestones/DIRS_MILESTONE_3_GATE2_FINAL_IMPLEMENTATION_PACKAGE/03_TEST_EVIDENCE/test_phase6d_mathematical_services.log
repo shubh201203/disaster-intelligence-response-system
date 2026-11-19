@@ -1,0 +1,126 @@
+COMMAND: python -m pytest tests/backend/test_phase6d_mathematical_services.py -v
+EXIT_CODE: 0
+TIMESTAMP: 2026-11-17T03:19:56.107106+00:00
+================================================================================
+
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\shubh\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\shubh\Downloads\DIRS\tests\backend
+configfile: pytest.ini
+plugins: anyio-3.7.1, asyncio-1.3.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 45 items
+
+tests\backend\test_phase6d_mathematical_services.py::TestVulnerabilityPopulationReconciliation::test_default_authoritative_weights PASSED [  2%]
+tests\backend\test_phase6d_mathematical_services.py::TestVulnerabilityPopulationReconciliation::test_each_demographic_category_independently PASSED [  4%]
+tests\backend\test_phase6d_mathematical_services.py::TestVulnerabilityPopulationReconciliation::test_complete_and_mutually_exclusive_categories PASSED [  6%]
+tests\backend\test_phase6d_mathematical_services.py::TestVulnerabilityPopulationReconciliation::test_missing_subgroup_categories_incomplete_enumeration PASSED [  8%]
+tests\backend\test_phase6d_mathematical_services.py::TestVulnerabilityPopulationReconciliation::test_zero_population PASSED [ 11%]
+tests\backend\test_phase6d_mathematical_services.py::TestVulnerabilityPopulationReconciliation::test_subgroup_totals_equal_to_total_population PASSED [ 13%]
+tests\backend\test_phase6d_mathematical_services.py::TestVulnerabilityPopulationReconciliation::test_subgroup_totals_below_total_population PASSED [ 15%]
+tests\backend\test_phase6d_mathematical_services.py::TestVulnerabilityPopulationReconciliation::test_subgroup_totals_exceeding_total_population PASSED [ 17%]
+tests\backend\test_phase6d_mathematical_services.py::TestVulnerabilityPopulationReconciliation::test_no_double_counting_with_explicit_general_population PASSED [ 20%]
+tests\backend\test_phase6d_mathematical_services.py::TestVulnerabilityPopulationReconciliation::test_lower_bound_monotonicity_proof PASSED [ 22%]
+tests\backend\test_phase6d_mathematical_services.py::TestVulnerabilityPopulationReconciliation::test_two_branch_mapping_and_zero_division_guard PASSED [ 24%]
+tests\backend\test_phase6d_mathematical_services.py::TestVulnerabilityPopulationReconciliation::test_census_reconciliation_shift PASSED [ 26%]
+tests\backend\test_phase6d_mathematical_services.py::TestMCPITieBreakingAndTiers::test_configurable_administrative_policy_weights PASSED [ 28%]
+tests\backend\test_phase6d_mathematical_services.py::TestMCPITieBreakingAndTiers::test_custom_configurable_weights_validation PASSED [ 31%]
+tests\backend\test_phase6d_mathematical_services.py::TestMCPITieBreakingAndTiers::test_mcpi_scoring_formula PASSED [ 33%]
+tests\backend\test_phase6d_mathematical_services.py::TestMCPITieBreakingAndTiers::test_authorized_tie_breaking_hierarchy PASSED [ 35%]
+tests\backend\test_phase6d_mathematical_services.py::TestMCPITieBreakingAndTiers::test_adversarial_exact_equality_mcpi_sub_tolerance_diff PASSED [ 37%]
+tests\backend\test_phase6d_mathematical_services.py::TestMCPITieBreakingAndTiers::test_adversarial_exact_equality_life_safety_sub_tolerance_diff PASSED [ 40%]
+tests\backend\test_phase6d_mathematical_services.py::TestMCPITieBreakingAndTiers::test_adversarial_exact_equality_vulnerability_sub_tolerance_diff PASSED [ 42%]
+tests\backend\test_phase6d_mathematical_services.py::TestMCPITieBreakingAndTiers::test_project_id_zero_substantive_effect_reversed_ids PASSED [ 44%]
+tests\backend\test_phase6d_mathematical_services.py::TestMCPITieBreakingAndTiers::test_project_id_stable_final_tie_breaker_exact_equality PASSED [ 46%]
+tests\backend\test_phase6d_mathematical_services.py::TestMCPITieBreakingAndTiers::test_priority_tier_status_authoritative_vs_proposal PASSED [ 48%]
+tests\backend\test_phase6d_mathematical_services.py::TestLifeSafetyTriageService::test_weights_sum_to_one PASSED [ 51%]
+tests\backend\test_phase6d_mathematical_services.py::TestLifeSafetyTriageService::test_damage_score_parsing_enum_string_float PASSED [ 53%]
+tests\backend\test_phase6d_mathematical_services.py::TestLifeSafetyTriageService::test_component_bounds_validation_and_invalid_inputs PASSED [ 55%]
+tests\backend\test_phase6d_mathematical_services.py::TestLifeSafetyTriageService::test_convex_combination_calculation PASSED [ 57%]
+tests\backend\test_phase6d_mathematical_services.py::TestLifeSafetyTriageService::test_administrative_triage_threshold_mandatory_elevation PASSED [ 60%]
+tests\backend\test_phase6d_mathematical_services.py::TestLifeSafetyTriageService::test_engineering_and_non_licensure_disclaimers PASSED [ 62%]
+tests\backend\test_phase6d_mathematical_services.py::TestProjectDependencyService::test_dependency_lag_ceiling_conversion_all_boundaries PASSED [ 64%]
+tests\backend\test_phase6d_mathematical_services.py::TestProjectDependencyService::test_invalid_dependency_inputs_negative_values PASSED [ 66%]
+tests\backend\test_phase6d_mathematical_services.py::TestProjectDependencyService::test_toposort_linear_acyclic PASSED [ 68%]
+tests\backend\test_phase6d_mathematical_services.py::TestProjectDependencyService::test_cycle_detection_path_extraction PASSED [ 71%]
+tests\backend\test_phase6d_mathematical_services.py::TestProjectDependencyService::test_transitive_cascade_reachability PASSED [ 73%]
+tests\backend\test_phase6d_mathematical_services.py::TestProjectDependencyService::test_cpm_pl_forward_backward_pass_floats_critical_path PASSED [ 75%]
+tests\backend\test_phase6d_mathematical_services.py::TestCalendarCostService::test_gamma_profiles_uniform_front_back_scurve_custom PASSED [ 77%]
+tests\backend\test_phase6d_mathematical_services.py::TestCalendarCostService::test_calendar_boundary_and_day_tests_0_1_29_30_31_60 PASSED [ 80%]
+tests\backend\test_phase6d_mathematical_services.py::TestCalendarCostService::test_partial_final_period_treatment_truncation PASSED [ 82%]
+tests\backend\test_phase6d_mathematical_services.py::TestCalendarCostService::test_cost_convolution_full_lifetime_reconciliation PASSED [ 84%]
+tests\backend\test_phase6d_mathematical_services.py::TestEquityPolicyRingFencing::test_internal_policy_equity_floor_and_dynamic_capacity PASSED [ 86%]
+tests\backend\test_phase6d_mathematical_services.py::TestEquityPolicyRingFencing::test_unabsorbed_policy_reserve_and_zero_eligible_absorption PASSED [ 88%]
+tests\backend\test_phase6d_mathematical_services.py::TestEquityPolicyRingFencing::test_uncontacted_blackout_reserve PASSED [ 91%]
+tests\backend\test_phase6d_mathematical_services.py::TestEquityPolicyRingFencing::test_policy_ring_fencing_vs_liquidity_accounting_separation PASSED [ 93%]
+tests\backend\test_phase6d_mathematical_services.py::TestCashFlowSolvencyService::test_solvent_trajectory_with_carry_forward PASSED [ 95%]
+tests\backend\test_phase6d_mathematical_services.py::TestCashFlowSolvencyService::test_insolvent_trajectory_detects_shortfall_and_earliest_period PASSED [ 97%]
+tests\backend\test_phase6d_mathematical_services.py::TestCashFlowSolvencyService::test_multi_fund_ring_fencing_prevents_unauthorized_cross_subsidy PASSED [100%]
+
+============================== warnings summary ===============================
+backend\app\config.py:4
+  C:\Users\shubh\Downloads\DIRS\backend\app\config.py:4: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class Settings(BaseSettings):
+
+backend\app\schemas\user.py:59
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\user.py:59: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class UserResponse(UserBase):
+
+backend\app\schemas\incident.py:6
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\incident.py:6: PydanticDeprecatedSince20: Using extra keyword arguments on `Field` is deprecated and will be removed. Use `json_schema_extra` instead. (Extra keys: 'example'). Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    title: str = Field(..., example="Severe Flooding near Riverfront Road")
+
+backend\app\schemas\incident.py:7
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\incident.py:7: PydanticDeprecatedSince20: Using extra keyword arguments on `Field` is deprecated and will be removed. Use `json_schema_extra` instead. (Extra keys: 'example'). Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    disaster_type: str = Field(..., example="FLOOD") # FLOOD, CYCLONE, FIRE, LANDSLIDE, EARTHQUAKE
+
+backend\app\schemas\incident.py:58
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\incident.py:58: PydanticDeprecatedSince20: Using extra keyword arguments on `Field` is deprecated and will be removed. Use `json_schema_extra` instead. (Extra keys: 'example'). Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    action: str = Field(..., example="VERIFY") # VERIFY or REJECT
+
+backend\app\schemas\incident.py:65
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\incident.py:65: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class IncidentResponse(BaseModel):
+
+<frozen importlib._bootstrap>:241
+  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type SwigPyPacked has no __module__ attribute
+
+<frozen importlib._bootstrap>:241
+  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type SwigPyObject has no __module__ attribute
+
+<frozen importlib._bootstrap>:241
+  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type swigvarlink has no __module__ attribute
+
+backend\app\schemas\shelter.py:42
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\shelter.py:42: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class ShelterResponse(BaseModel):
+
+backend\app\schemas\resource.py:14
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\resource.py:14: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class ResourceResponse(BaseModel):
+
+backend\app\schemas\alert.py:13
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\alert.py:13: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class AlertResponse(BaseModel):
+
+backend\app\main.py:20
+  C:\Users\shubh\Downloads\DIRS\backend\app\main.py:20: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\fastapi\applications.py:4681
+  C:\Users\shubh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\fastapi\applications.py:4681: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)  # ty: ignore[deprecated]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 45 passed, 14 warnings in 0.89s =======================

@@ -1,0 +1,16 @@
+DIRS EXECUTION ENVIRONMENT AUDIT
+==================================================
+Timestamp: 2026-11-17T02:41:53.070195
+OS: Windows 10 (10.0.26300)
+Architecture: AMD64
+Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+Executable: C:\Users\shubh\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe
+
+Core Dependency Versions:
+-------------------------
+ortools: 9.15.6755
+pydantic: 2.13.4
+pytest: 9.0.3
+sqlalchemy: 2.0.52
+fastapi: 0.141.1
+==================================================

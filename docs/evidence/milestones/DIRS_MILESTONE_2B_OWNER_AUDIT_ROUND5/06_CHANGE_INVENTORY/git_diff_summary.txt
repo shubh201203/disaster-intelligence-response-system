@@ -1,0 +1,1 @@
+git diff unavailable: Command '['git', 'diff', '--stat']' returned non-zero exit status 129.

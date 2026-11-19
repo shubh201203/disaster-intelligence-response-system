@@ -1,0 +1,22 @@
+DIRS PHASE 6D-B MILESTONE 3 GATE 2: FOUR-FILE SCOPE AUDIT
+======================================================================
+
+Strict Four-File Implementation Scope:
+1. [CREATE] backend/app/recovery/services/recovery_optimization_service.py
+   SHA-256: 5507fe4ca226479bc11b0508d3be64cc53c772af5ec8e9206c2ff8b0cd82311f
+2. [CREATE] backend/app/routers/recovery_optimization.py
+   SHA-256: b41e38e440e12bdfa2293a6f15c9aeb653bc0687aaf56eacff48ccaee1d06950
+3. [CREATE] tests/backend/test_phase6d_api_route.py
+   SHA-256: def21b0cc4c1d1ff084937db4a23e5c1e75084a33ce034704f6f2cb4add23a8e
+4. [MODIFY] backend/app/main.py
+   SHA-256: 43757d9eab03cdf38db73b60e64d831681e245376b0c562be1618c5ac2484fd8
+
+Reference Gate 1 Files (Frozen Baseline):
+- [FROZEN] backend/app/schemas/recovery_optimization.py
+  SHA-256: c6983353ca041d3b1b2049d50c4bc51d14061a875685d9555fc9c8da4e4aa9cd
+- [FROZEN] tests/backend/test_phase6d_api_schemas.py
+  SHA-256: 10679420a6cea81fb6b4e4102b2220410c7cd731f401f0a32c3e526d438c2c46
+
+Verification: Zero 5th implementation files created or modified.
+backend/app/config.py: UNTOUCHED
+backend/app/core/deps.py: UNTOUCHED

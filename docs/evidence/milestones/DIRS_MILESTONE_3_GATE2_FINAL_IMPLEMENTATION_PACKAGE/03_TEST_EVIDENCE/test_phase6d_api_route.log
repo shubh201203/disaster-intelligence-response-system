@@ -1,0 +1,112 @@
+COMMAND: python -m pytest tests/backend/test_phase6d_api_route.py -v
+EXIT_CODE: 0
+TIMESTAMP: 2026-11-17T03:19:34.297999+00:00
+================================================================================
+
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\shubh\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\shubh\Downloads\DIRS\tests\backend
+configfile: pytest.ini
+plugins: anyio-3.7.1, asyncio-1.3.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 27 items
+
+tests\backend\test_phase6d_api_route.py::test_01_api_optimal_scenario_real_integration PASSED [  3%]
+tests\backend\test_phase6d_api_route.py::test_02_api_feasible_suboptimal_scenario PASSED [  7%]
+tests\backend\test_phase6d_api_route.py::test_03_api_infeasible_scenario_diagnostics PASSED [ 11%]
+tests\backend\test_phase6d_api_route.py::test_04_api_unknown_solver_result PASSED [ 14%]
+tests\backend\test_phase6d_api_route.py::test_05_api_model_invalid_precedence_cycle PASSED [ 18%]
+tests\backend\test_phase6d_api_route.py::test_06_api_post_solve_reconciliation_failed_retention PASSED [ 22%]
+tests\backend\test_phase6d_api_route.py::test_07_api_rsk_m2_07_missing_safety_deadline PASSED [ 25%]
+tests\backend\test_phase6d_api_route.py::test_08_api_rsk_m2_07_invalid_safety_deadline PASSED [ 29%]
+tests\backend\test_phase6d_api_route.py::test_09_api_unknown_request_field_rejection PASSED [ 33%]
+tests\backend\test_phase6d_api_route.py::test_10_api_non_finite_float_rejection PASSED [ 37%]
+tests\backend\test_phase6d_api_route.py::test_11_api_candidate_count_limit_500_accepted PASSED [ 40%]
+tests\backend\test_phase6d_api_route.py::test_11_api_candidate_count_limit_501_rejected_before_orchestrator PASSED [ 44%]
+tests\backend\test_phase6d_api_route.py::test_12_api_large_integer_objective_preservation_above_2_pow_53 PASSED [ 48%]
+tests\backend\test_phase6d_api_route.py::test_13_api_decimal_json_serialization_precision PASSED [ 51%]
+tests\backend\test_phase6d_api_route.py::test_14_api_correlation_uuid_generation_and_propagation PASSED [ 55%]
+tests\backend\test_phase6d_api_route.py::test_15_api_unexpected_orchestrator_exception_sanitized_500 PASSED [ 59%]
+tests\backend\test_phase6d_api_route.py::test_16_api_auth_missing_or_invalid_produces_401 PASSED [ 62%]
+tests\backend\test_phase6d_api_route.py::test_17_api_auth_unauthorized_role_produces_403 PASSED [ 66%]
+tests\backend\test_phase6d_api_route.py::test_18_api_auth_authorized_govt_and_admin_produces_200 PASSED [ 70%]
+tests\backend\test_phase6d_api_route.py::test_19_api_zero_application_data_writes PASSED [ 74%]
+tests\backend\test_phase6d_api_route.py::test_20_api_event_loop_responsiveness_controlled_blocking PASSED [ 77%]
+tests\backend\test_phase6d_api_route.py::test_21_api_timeout_cap_default_120 PASSED [ 81%]
+tests\backend\test_phase6d_api_route.py::test_22_api_timeout_cap_env_override PASSED [ 85%]
+tests\backend\test_phase6d_api_route.py::test_23_api_timeout_cap_at_cap_accepted PASSED [ 88%]
+tests\backend\test_phase6d_api_route.py::test_24_api_timeout_cap_above_cap_rejected PASSED [ 92%]
+tests\backend\test_phase6d_api_route.py::test_25_api_timeout_cap_invalid_config_rejection PASSED [ 96%]
+tests\backend\test_phase6d_api_route.py::test_26_api_timeout_cap_no_silent_clamping PASSED [100%]
+
+============================== warnings summary ===============================
+backend\app\config.py:4
+  C:\Users\shubh\Downloads\DIRS\backend\app\config.py:4: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class Settings(BaseSettings):
+
+backend\app\schemas\user.py:59
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\user.py:59: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class UserResponse(UserBase):
+
+backend\app\schemas\incident.py:6
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\incident.py:6: PydanticDeprecatedSince20: Using extra keyword arguments on `Field` is deprecated and will be removed. Use `json_schema_extra` instead. (Extra keys: 'example'). Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    title: str = Field(..., example="Severe Flooding near Riverfront Road")
+
+backend\app\schemas\incident.py:7
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\incident.py:7: PydanticDeprecatedSince20: Using extra keyword arguments on `Field` is deprecated and will be removed. Use `json_schema_extra` instead. (Extra keys: 'example'). Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    disaster_type: str = Field(..., example="FLOOD") # FLOOD, CYCLONE, FIRE, LANDSLIDE, EARTHQUAKE
+
+backend\app\schemas\incident.py:58
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\incident.py:58: PydanticDeprecatedSince20: Using extra keyword arguments on `Field` is deprecated and will be removed. Use `json_schema_extra` instead. (Extra keys: 'example'). Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    action: str = Field(..., example="VERIFY") # VERIFY or REJECT
+
+backend\app\schemas\incident.py:65
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\incident.py:65: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class IncidentResponse(BaseModel):
+
+<frozen importlib._bootstrap>:241
+  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type SwigPyPacked has no __module__ attribute
+
+<frozen importlib._bootstrap>:241
+  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type SwigPyObject has no __module__ attribute
+
+<frozen importlib._bootstrap>:241
+  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type swigvarlink has no __module__ attribute
+
+backend\app\schemas\shelter.py:42
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\shelter.py:42: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class ShelterResponse(BaseModel):
+
+backend\app\schemas\resource.py:14
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\resource.py:14: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class ResourceResponse(BaseModel):
+
+backend\app\schemas\alert.py:13
+  C:\Users\shubh\Downloads\DIRS\backend\app\schemas\alert.py:13: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class AlertResponse(BaseModel):
+
+backend\app\main.py:20
+  C:\Users\shubh\Downloads\DIRS\backend\app\main.py:20: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\fastapi\applications.py:4681
+  C:\Users\shubh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\fastapi\applications.py:4681: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)  # ty: ignore[deprecated]
+
+..\..\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\fastapi\testclient.py:1
+  C:\Users\shubh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 27 passed, 15 warnings in 3.62s =======================
